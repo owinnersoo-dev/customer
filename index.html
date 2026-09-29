@@ -3036,7 +3036,15 @@ const recordSessionV28=recordSession;recordSession=function(){stopAllExerciseTim
       .print-source-card .info{display:grid;grid-template-rows:auto auto auto;align-content:start;gap:1.15mm;flex:0 0 auto;font-size:7.7px;line-height:1.48}.print-source-card .info .box{min-height:0;padding:1.5mm 1.8mm;border-left:1mm solid #1A519E;border-radius:1.7mm;background:#f3f6f9;color:#40576d;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}.print-source-card .info b{display:block;margin-bottom:.6mm;color:#183a5b;font-size:8px;font-weight:900;line-height:1.2}.print-source-card .info .caution{border-left-color:#c63d32;background:#fff0ef;color:#a32929}.print-source-card .info .caution b{color:#b42f29}
       .empty-card{background:#f8fafc;border-style:dashed}
     </style>`;
-    const bundle={title:`${bookEsc(p.name,'환자')} 실시 운동 책자`,html:pages.join(''),css:css+bookPolish};
+    const a4Fit=`<style>
+      @page{size:A4 portrait;margin:8mm}
+      .four-book-page{width:194mm;height:276mm;padding:5mm;break-after:page;page-break-after:always;overflow:hidden}
+      .four-book-page:last-child{break-after:auto;page-break-after:auto}
+      .four-grid{height:242mm;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}
+      .ui-card-cell,.print-source-card{min-width:0;min-height:0;overflow:hidden;break-inside:avoid;page-break-inside:avoid}
+      @media print{html,body{margin:0!important;padding:0!important}.four-book-page{width:194mm!important;height:276mm!important;margin:0 auto!important;break-after:page!important;page-break-after:always!important}.four-book-page:last-child{break-after:auto!important;page-break-after:auto!important}.four-grid{height:242mm!important}}
+    </style>`;
+    const bundle={title:`${bookEsc(p.name,'환자')} 실시 운동 책자`,html:pages.join(''),css:css+bookPolish+a4Fit};
     if(returnBundle===true)return bundle;
     w.document.open();w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>${bundle.title}</title>${bundle.css}</head><body>${bundle.html}<script>window.onafterprint=()=>{try{window.opener&&window.opener.postMessage({type:'rehab-print-finished'},'*')}catch(e){}setTimeout(()=>window.close(),100)};window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close();
   };
@@ -4027,6 +4035,7 @@ html body.tablet-app.tablet-route-record #exerciseListPanel #pagerBottom{display
 /* iOS에서도 한 화면 안에서 책자를 확인하고 인쇄한 뒤 결과 확인으로 복귀 */
 (()=>{
   const buildBooklet=window.printSelectedCardUiV50;
+  const buildReport=printProgressReport;
   let preview=null;
   function closeBooklet(){
     if(!preview)return;
@@ -4054,6 +4063,20 @@ html body.tablet-app.tablet-route-record #exerciseListPanel #pagerBottom{display
     document.body.style.overflow='hidden';
     const frame=preview.querySelector('iframe');
     frame.srcdoc='<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+bundle.title+'</title>'+bundle.css+'</head><body>'+bundle.html+'</body></html>';
+  };
+  printProgressReport=function(returnBundle=false){
+    if(returnBundle===true)return buildReport(true);
+    const bundle=buildReport(true);
+    if(!bundle)return;
+    if(preview)preview.remove();
+    preview=document.createElement('div');
+    preview.className='exercise-booklet-preview';
+    preview.innerHTML='<div class="exercise-booklet-preview-toolbar"><strong>종합결과보고서 미리보기</strong><div class="exercise-booklet-preview-actions"><button type="button" class="print">인쇄 / PDF 저장</button><button type="button" class="back">결과 확인으로 돌아가기</button></div></div><iframe title="종합결과보고서"></iframe>';
+    preview.querySelector('.print').addEventListener('click',window.printExerciseBookletPreview);
+    preview.querySelector('.back').addEventListener('click',closeBooklet);
+    document.body.appendChild(preview);
+    document.body.style.overflow='hidden';
+    preview.querySelector('iframe').srcdoc='<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+bundle.title+'</title>'+bundle.css+'</head><body>'+bundle.html+'</body></html>';
   };
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&preview)closeBooklet()});
 })();
