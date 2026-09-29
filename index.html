@@ -3049,7 +3049,7 @@ const recordSessionV28=recordSession;recordSession=function(){stopAllExerciseTim
       btn.dataset.bookletCommand='v50';
       if(btn.dataset.bookletBound==='1')return;
       btn.dataset.bookletBound='1';
-      btn.addEventListener('click',window.printSelectedCardUiV50);
+      btn.addEventListener('click',()=>window.printSelectedCardUiV50());
     });
   };
   bindNewBookletCommand();
@@ -4001,7 +4001,61 @@ html body.tablet-app #tabletComprehensiveResult .visual-chart,
 html body.tablet-app #tabletComprehensiveResult .result-kpi,
 html body.tablet-app #tabletComprehensiveResult .result-section{
   border:0!important;border-color:transparent!important;
-  box-shadow:none!important;
+  box-shadow:0 7px 18px rgba(24,38,58,.11),0 2px 5px rgba(24,38,58,.05)!important;
 }
 </style>
+<style id="record-print-preview-v66">
+/* 운동 기록 중에는 목록 탐색용 페이지 번호를 표시하지 않는다. */
+html body.tablet-app.tablet-route-record #exerciseListPanel #pagerTop,
+html body.tablet-app.tablet-route-record #exerciseListPanel #pagerBottom{display:none!important}
+/* 모바일에서도 현재 화면으로 쉽게 돌아갈 수 있는 책자 미리보기 */
+.exercise-booklet-preview{position:fixed;inset:0;z-index:70000;display:flex;flex-direction:column;background:#e9eef4;color:#18263a}
+.exercise-booklet-preview[hidden]{display:none!important}
+.exercise-booklet-preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px max(12px,calc((100vw - 980px)/2));background:#18263a;color:#fff}
+.exercise-booklet-preview-toolbar strong{font-size:16px}
+.exercise-booklet-preview-actions{display:flex;gap:8px}
+.exercise-booklet-preview-actions button{min-height:42px;padding:8px 14px;border:1px solid #bdcbd9;border-radius:6px;background:#fff;color:#18263a;font-weight:850}
+.exercise-booklet-preview-actions .print{background:#1a519e;border-color:#1a519e;color:#fff}
+.exercise-booklet-preview iframe{display:block;flex:1 1 auto;width:100%;min-height:0;border:0;background:#fff}
+@media(max-width:680px){
+ .exercise-booklet-preview-toolbar{display:grid;grid-template-columns:1fr;padding:10px;gap:8px}
+ .exercise-booklet-preview-toolbar strong{font-size:14px}
+ .exercise-booklet-preview-actions button{flex:1;font-size:13px}
+}
+</style>
+<script>
+/* iOS에서도 한 화면 안에서 책자를 확인하고 인쇄한 뒤 결과 확인으로 복귀 */
+(()=>{
+  const buildBooklet=window.printSelectedCardUiV50;
+  let preview=null;
+  function closeBooklet(){
+    if(!preview)return;
+    preview.remove();preview=null;
+    document.body.style.overflow='';
+    if(typeof tabletGo==='function')tabletGo('result');
+  }
+  window.closeExerciseBookletPreview=closeBooklet;
+  window.printExerciseBookletPreview=function(){
+    const frame=preview?.querySelector('iframe');
+    if(!frame?.contentWindow)return;
+    frame.contentWindow.focus();frame.contentWindow.print();
+  };
+  window.printSelectedCardUiV50=function(returnBundle=false){
+    if(returnBundle===true)return buildBooklet(true);
+    const bundle=buildBooklet(true);
+    if(!bundle)return;
+    if(preview)preview.remove();
+    preview=document.createElement('div');
+    preview.className='exercise-booklet-preview';
+    preview.innerHTML='<div class="exercise-booklet-preview-toolbar"><strong>실시 운동 책자 미리보기</strong><div class="exercise-booklet-preview-actions"><button type="button" class="print">인쇄 / PDF 저장</button><button type="button" class="back">결과 확인으로 돌아가기</button></div></div><iframe title="실시 운동 책자"></iframe>';
+    preview.querySelector('.print').addEventListener('click',window.printExerciseBookletPreview);
+    preview.querySelector('.back').addEventListener('click',closeBooklet);
+    document.body.appendChild(preview);
+    document.body.style.overflow='hidden';
+    const frame=preview.querySelector('iframe');
+    frame.srcdoc='<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+bundle.title+'</title>'+bundle.css+'</head><body>'+bundle.html+'</body></html>';
+  };
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&preview)closeBooklet()});
+})();
+</script>
 </body></html>
