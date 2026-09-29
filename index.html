@@ -2058,7 +2058,7 @@ body.tablet-app{min-width:0!important;overflow-x:hidden}
   const num=v=>v===''||v===undefined||v===null||Number.isNaN(Number(v))?null:Number(v);
   const cap=(v,max)=>v===null?0:Math.max(0,Math.min(100,Math.round(v/max*100)));
   const val=v=>v===null?'-':Number.isInteger(v)?String(v):v.toFixed(1);
-  function donutItems(defs,maxes,a,colors){return `<div class="result-donut-grid">${defs.map((d,i)=>{const pre=num(a[d[1]+'Pre']),post=num(a[d[1]+'Post']),p=cap(post,maxes[i]),preP=cap(pre,maxes[i]),delta=pre!==null&&post!==null?post-pre:null,color=Array.isArray(colors)?colors[i%colors.length]:colors,status=delta===null?'change-empty':delta===0?'change-none':'change-present',statusText=delta===null?'변화 미입력':delta===0?'변화 없음':`변화 있음 (${delta>0?'+':''}${val(delta)})`;return `<div class="result-donut-item" style="--item-color:${color}"><div class="result-donut" style="--p:${p};--c:${color}"><strong>${val(post)}</strong></div><div class="result-donut-copy"><b>${d[0]}</b><div class="before-after-bars" aria-label="치료 전후 비교"><i><small>전</small><u style="--bar:${preP}%"><strong>${val(pre)}</strong></u></i><i><small>후</small><u class="after" style="--bar:${p}%;--after-color:${color}"><strong>${val(post)}</strong></u></i></div><em class="${status}">${statusText}</em></div></div>`}).join('')}</div>`}
+  function donutItems(defs,maxes,a,colors){return `<div class="result-donut-grid">${defs.map((d,i)=>{const pre=num(a[d[1]+'Pre']),post=num(a[d[1]+'Post']),p=cap(post,maxes[i]),preP=cap(pre,maxes[i]),delta=pre!==null&&post!==null?post-pre:null,color=Array.isArray(colors)?colors[i%colors.length]:colors,status=delta===null?'change-empty':delta===0?'change-none':'change-present',statusText=delta===null?'변화 미입력':delta===0?'변화 없음':`변화 있음 (${delta>0?'+':''}${val(delta)})`;return `<div class="result-donut-item" style="--item-color:${color}"><div class="result-donut dual-donut" style="--p:${p};--c:${color}" title="치료 후 ${val(post)} · 치료 전 ${val(pre)}"><div class="result-donut-pre" style="--pre-p:${preP}"><strong>${val(pre)}</strong><small>전</small></div></div><div class="result-donut-copy"><b>${d[0]}</b><div class="before-after-bars" aria-label="치료 전후 비교"><i><small>전</small><u style="--bar:${preP}%"><strong>${val(pre)}</strong></u></i><i><small>후</small><u class="after" style="--bar:${p}%;--after-color:${color}"><strong>${val(post)}</strong></u></i></div><em class="${status}">${statusText}</em></div></div>`}).join('')}</div>`}
   function installResultDonuts(){const summary=document.querySelector('.clinical-visual-summary'),grid=summary?.querySelector('.visual-chart-grid');if(!grid)return;const a=state.patient?.assessment||{},rom=[['굴곡','romFlex'],['외전','romAbd'],['외회전','romER'],['내회전','romIR']],mmt=[['굴곡','mmtFlex'],['외전','mmtAbd'],['외회전','mmtER'],['내회전','mmtIR']],romColors=['#1F5BA8','#3479C6','#7A5AC8','#E07A32'],mmtColors=['#168675','#2F6FA8','#B85C8A','#6D7785'];grid.innerHTML=`<div class="visual-chart"><h5>ROM 치료 전·후 · 치료 후 참고각도 도달률</h5>${donutItems(rom,[180,180,90,70],a,romColors)}</div><div class="visual-chart"><h5>MMT 치료 전·후 · 5등급 기준</h5>${donutItems(mmt,[5,5,5,5],a,mmtColors)}</div>`}
   if(!Array.isArray(state.customExercises))state.customExercises=[];
   function normalizeCustomExercise(e){return {...e,custom:true,page:'추가',mob:Math.max(0,Math.min(100,Number(e.mob)||0)),stab:Math.max(0,Math.min(100,Number(e.stab)||0)),purposeTags:Array.isArray(e.purposeTags)?e.purposeTags:[]}}
@@ -3706,5 +3706,302 @@ html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExer
   background:#0f7567!important;background-color:#0f7567!important;
 }
 html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn:active{transform:scale(.97)!important}
+</style>
+<style id="dual-result-donut-v61">
+/* 바깥 링=치료 후, 안쪽 작은 링=치료 전 */
+.tablet-route-result #tabletComprehensiveResult .result-donut.dual-donut{
+  isolation:isolate;box-shadow:0 0 0 1px rgba(24,38,58,.03);
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut.dual-donut::before{
+  inset:7px!important;background:#fff!important;z-index:0!important;
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre{
+  --pre-p:0;position:absolute;z-index:2;inset:7px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:conic-gradient(#94a3b8 calc(var(--pre-p)*1%),#e7edf3 0)!important;
+  box-shadow:none;
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre::before{
+  content:'';position:absolute;inset:7px;border-radius:50%;background:#fff;
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre strong,
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre small{
+  position:relative;z-index:1;margin:0!important;line-height:1!important;text-align:center!important;
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre strong{
+  color:#18263a!important;font-size:9px!important;font-weight:900!important;
+}
+.tablet-route-result #tabletComprehensiveResult .result-donut-pre small{
+  margin-top:2px!important;color:#7b8998!important;font-size:5px!important;font-weight:900!important;
+}
+@media(max-width:620px){
+  .tablet-route-result #tabletComprehensiveResult .result-donut-pre{inset:7px}
+  .tablet-route-result #tabletComprehensiveResult .result-donut-pre::before{inset:7px}
+  .tablet-route-result #tabletComprehensiveResult .result-donut-pre strong{font-size:8px!important}
+}
+</style>
+<style id="tablet-route-layout-unified-v62">
+/* 여섯 업무 페이지의 시작선·바깥 배경·제목 영역을 하나의 규격으로 통일 */
+html body.tablet-app:not(.tablet-route-home){background:#e8edf4!important}
+html body.tablet-app:not(.tablet-route-home) main.wrap{
+  width:100%!important;max-width:1280px!important;margin:0 auto!important;
+  padding-top:16px!important;background:#e8edf4!important;
+}
+html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{
+  margin-top:0!important;padding:14px!important;border:0!important;border-radius:0!important;
+  background:#e8edf4!important;box-shadow:none!important;
+}
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title{
+  display:flex!important;align-items:center!important;width:100%!important;min-height:88px!important;
+  margin:0 0 14px!important;padding:14px 18px!important;
+  border:1px solid #d2dce6!important;border-left:6px solid #1a519e!important;border-radius:16px!important;
+  background:linear-gradient(135deg,#fff 0%,#eef4fb 100%)!important;
+  box-shadow:none!important;
+}
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title h2{
+  margin:0 0 4px!important;color:#18263a!important;font-size:25px!important;line-height:1.2!important;
+}
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title span{
+  margin:0!important;color:#677383!important;font-size:13px!important;line-height:1.4!important;
+}
+/* 주 화면 바로 아래 콘텐츠도 같은 시작 간격 사용 */
+html body.tablet-app.tablet-route-register #patientInfoPanel>.patient-grid,
+html body.tablet-app.tablet-route-pre #assessmentPanel>#assessmentPreNrs,
+html body.tablet-app.tablet-route-post #assessmentPanel>.tablet-post-nrs,
+html body.tablet-app.tablet-route-select #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app.tablet-route-record #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app.tablet-route-result #patientRecordsPanel>#resultMasterTools{
+  margin-top:0!important;
+}
+@media(max-width:680px){
+  html body.tablet-app:not(.tablet-route-home) main.wrap{padding:10px 9px 92px!important}
+  html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+  html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{padding:10px!important}
+  html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title{
+    min-height:76px!important;margin-bottom:10px!important;padding:11px 13px!important;border-radius:13px!important;
+  }
+  html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title h2{font-size:21px!important}
+  html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title span{font-size:11px!important}
+}
+</style>
+<style id="square-route-surfaces-v63">
+/* 6개 업무 화면: 직각 프레임, 동일한 깊이감, 동일한 좌우 정렬선 */
+html body.tablet-app:not(.tablet-route-home){
+  --route-gutter:14px;
+  --route-surface:#fff;
+  --route-line:#cbd6e2;
+  --route-shadow:0 8px 20px rgba(24,38,58,.12),0 2px 5px rgba(24,38,58,.07);
+}
+html body.tablet-app:not(.tablet-route-home) main.wrap{
+  box-sizing:border-box!important;
+  padding-left:var(--route-gutter)!important;
+  padding-right:var(--route-gutter)!important;
+}
+html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+}
+/* 화면 제목과 주요 텍스트 프레임은 모두 직각으로 통일 */
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title,
+html body.tablet-app.tablet-route-register #patientInfoPanel>.patient-grid,
+html body.tablet-app.tablet-route-register #patientInfoPanel>.brand-row,
+html body.tablet-app #assessmentPanel #assessmentPreNrs,
+html body.tablet-app #assessmentPanel .tablet-post-nrs,
+html body.tablet-app #assessmentPanel .assessment-group,
+html body.tablet-app #assessmentPanel .assessment-mode-banner,
+html body.tablet-app #assessmentPanel .rx-note,
+html body.tablet-app #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app #exerciseListPanel .flow-start-panel,
+html body.tablet-app #exerciseListPanel .exercise-flow-panel,
+html body.tablet-app #exerciseListPanel .flow-head,
+html body.tablet-app #exerciseListPanel .flow-current,
+html body.tablet-app #exerciseListPanel article.card,
+html body.tablet-app #patientRecordsPanel #resultMasterTools,
+html body.tablet-app #patientRecordsPanel .static-booklet-panel,
+html body.tablet-app #patientRecordsPanel .record-toolbar,
+html body.tablet-app #patientRecordsPanel .trend-wrap,
+html body.tablet-app #patientRecordsPanel .record-table-wrap,
+html body.tablet-app #tabletComprehensiveResult,
+html body.tablet-app #tabletComprehensiveResult .clinical-visual-summary,
+html body.tablet-app #tabletComprehensiveResult .visual-chart,
+html body.tablet-app #tabletComprehensiveResult .result-kpi,
+html body.tablet-app #tabletComprehensiveResult .result-section{
+  border-radius:0!important;
+}
+/* 각 페이지 첫 콘텐츠의 폭과 외곽 표현을 같은 규격으로 고정 */
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title,
+html body.tablet-app.tablet-route-register #patientInfoPanel>.patient-grid,
+html body.tablet-app.tablet-route-pre #assessmentPanel>#assessmentPreNrs,
+html body.tablet-app.tablet-route-post #assessmentPanel>.tablet-post-nrs,
+html body.tablet-app.tablet-route-select #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app.tablet-route-record #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app.tablet-route-result #patientRecordsPanel>#resultMasterTools{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+  border:1px solid var(--route-line)!important;
+  background:var(--route-surface)!important;
+  box-shadow:var(--route-shadow)!important;
+}
+/* 내부 블록도 부모 폭을 넘거나 제각각 들여쓰기 되지 않도록 정렬 */
+html body.tablet-app #patientInfoPanel .patient-grid,
+html body.tablet-app #patientInfoPanel .brand-row,
+html body.tablet-app #assessmentPanel .assessment-grid,
+html body.tablet-app #exerciseListPanel .flow-start-panel,
+html body.tablet-app #exerciseListPanel .exercise-flow-panel,
+html body.tablet-app #exerciseListPanel #grid,
+html body.tablet-app #exerciseListPanel .pager,
+html body.tablet-app #patientRecordsPanel #resultMasterTools,
+html body.tablet-app #patientRecordsPanel #tabletComprehensiveResult,
+html body.tablet-app #patientRecordsPanel .record-toolbar,
+html body.tablet-app #patientRecordsPanel .record-table-wrap{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+}
+/* 직각 카드 뒤에 일정한 그림자를 주어 배경과 분리 */
+html body.tablet-app #assessmentPanel .assessment-group,
+html body.tablet-app #exerciseListPanel .flow-start-panel,
+html body.tablet-app #exerciseListPanel .exercise-flow-panel,
+html body.tablet-app #exerciseListPanel article.card,
+html body.tablet-app #patientRecordsPanel .static-booklet-panel,
+html body.tablet-app #patientRecordsPanel .record-toolbar,
+html body.tablet-app #patientRecordsPanel .trend-wrap,
+html body.tablet-app #patientRecordsPanel .record-table-wrap,
+html body.tablet-app #tabletComprehensiveResult .clinical-visual-summary,
+html body.tablet-app #tabletComprehensiveResult .result-section{
+  box-shadow:var(--route-shadow)!important;
+}
+@media(max-width:680px){
+  html body.tablet-app:not(.tablet-route-home){--route-gutter:10px;--route-shadow:0 6px 14px rgba(24,38,58,.11),0 1px 4px rgba(24,38,58,.06)}
+  html body.tablet-app:not(.tablet-route-home) main.wrap{
+    width:100%!important;max-width:100%!important;
+    padding-left:var(--route-gutter)!important;padding-right:var(--route-gutter)!important;
+  }
+  html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+  html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{
+    width:100%!important;max-width:100%!important;padding:0!important;
+  }
+  html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title{
+    margin-bottom:12px!important;padding:12px!important;
+  }
+  html body.tablet-app #patientInfoPanel .patient-grid,
+  html body.tablet-app #patientInfoPanel .brand-row,
+  html body.tablet-app #assessmentPanel .assessment-grid,
+  html body.tablet-app #exerciseListPanel>.exercise-section-inner,
+  html body.tablet-app #patientRecordsPanel>#resultMasterTools,
+  html body.tablet-app #patientRecordsPanel>#tabletComprehensiveResult{
+    width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;
+  }
+}
+</style>
+<style id="mobile-white-surface-pagination-v64">
+/* 모든 업무 페이지의 바탕을 흰색으로 통일해 메인 UI와 자연스럽게 연결 */
+html body.tablet-app:not(.tablet-route-home),
+html body.tablet-app:not(.tablet-route-home) main.wrap,
+html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{
+  background:#fff!important;background-color:#fff!important;
+}
+/* 운동 분류: 부모의 사각 외곽선 위에 둥근 테두리가 겹치지 않도록 단일 직각 프레임 사용 */
+html body.tablet-app #exerciseListPanel .tablet-exercise-filters{
+  box-sizing:border-box!important;width:100%!important;max-width:none!important;
+  margin-left:0!important;margin-right:0!important;
+  border:1px solid var(--route-line,#cbd6e2)!important;border-radius:0!important;
+  background:#fff!important;box-shadow:0 5px 13px rgba(24,38,58,.08)!important;
+}
+html body.tablet-app #exerciseListPanel>.exercise-section-inner{
+  background:#fff!important;border-radius:0!important;
+}
+/* 페이지 이동 버튼: 숫자와 양쪽 화살표의 크기·기준선 정렬 */
+html body.tablet-app #exerciseListPanel .pager{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  gap:7px!important;padding:12px!important;background:#fff!important;
+}
+html body.tablet-app #exerciseListPanel .pager button{
+  flex:0 0 42px!important;width:42px!important;min-width:42px!important;height:42px!important;
+  min-height:42px!important;padding:0!important;display:grid!important;place-items:center!important;
+  line-height:1!important;border-radius:0!important;
+}
+html body.tablet-app #exerciseListPanel .pager .pageinfo{
+  flex:1 0 100%!important;width:100%!important;margin:4px 0 0!important;text-align:center!important;
+}
+@media(max-width:680px){
+  html body.tablet-app:not(.tablet-route-home),
+  html body.tablet-app:not(.tablet-route-home) main.wrap,
+  html body.tablet-app.tablet-route-register main.wrap>#patientInfoPanel,
+  html body.tablet-app.tablet-route-pre main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-select main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-record main.wrap>#exerciseListPanel,
+  html body.tablet-app.tablet-route-post main.wrap>#assessmentPanel,
+  html body.tablet-app.tablet-route-result main.wrap>#patientRecordsPanel{background:#fff!important}
+  html body.tablet-app #exerciseListPanel .tablet-exercise-filters{
+    padding:10px!important;border-radius:0!important;box-shadow:0 4px 10px rgba(24,38,58,.07)!important;
+  }
+  html body.tablet-app #exerciseListPanel .pager{
+    display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;
+    align-items:center!important;justify-items:stretch!important;gap:5px!important;
+    width:100%!important;padding:10px 0!important;
+  }
+  html body.tablet-app #exerciseListPanel .pager button{
+    width:100%!important;min-width:0!important;height:40px!important;min-height:40px!important;
+    margin:0!important;font-size:13px!important;
+  }
+  html body.tablet-app #exerciseListPanel .pager .pageinfo{
+    grid-column:1/-1!important;width:100%!important;margin:3px 0 0!important;text-align:left!important;
+  }
+}
+</style>
+<style id="flat-borderless-route-surfaces-v65">
+/* 6개 업무 화면의 공통 텍스트·콘텐츠 틀: 그림자와 외곽선 제거 */
+html body.tablet-app:not(.tablet-route-home) main.wrap>section.tablet-visible>.tablet-page-title,
+html body.tablet-app.tablet-route-register #patientInfoPanel>.patient-grid,
+html body.tablet-app.tablet-route-register #patientInfoPanel>.brand-row,
+html body.tablet-app #assessmentPanel #assessmentPreNrs,
+html body.tablet-app #assessmentPanel .tablet-post-nrs,
+html body.tablet-app #assessmentPanel .assessment-group,
+html body.tablet-app #assessmentPanel .assessment-mode-banner,
+html body.tablet-app #assessmentPanel .rx-note,
+html body.tablet-app #exerciseListPanel>.exercise-section-inner,
+html body.tablet-app #exerciseListPanel .tablet-exercise-filters,
+html body.tablet-app #exerciseListPanel .flow-start-panel,
+html body.tablet-app #exerciseListPanel .exercise-flow-panel,
+html body.tablet-app #exerciseListPanel .flow-head,
+html body.tablet-app #exerciseListPanel .flow-current,
+html body.tablet-app #exerciseListPanel article.card,
+html body.tablet-app #exerciseListPanel .pager,
+html body.tablet-app #patientRecordsPanel #resultMasterTools,
+html body.tablet-app #patientRecordsPanel .static-booklet-panel,
+html body.tablet-app #patientRecordsPanel .record-toolbar,
+html body.tablet-app #patientRecordsPanel .trend-wrap,
+html body.tablet-app #patientRecordsPanel .record-table-wrap,
+html body.tablet-app #tabletComprehensiveResult,
+html body.tablet-app #tabletComprehensiveResult .clinical-visual-summary,
+html body.tablet-app #tabletComprehensiveResult .visual-chart,
+html body.tablet-app #tabletComprehensiveResult .result-kpi,
+html body.tablet-app #tabletComprehensiveResult .result-section{
+  border:0!important;border-color:transparent!important;
+  box-shadow:none!important;
+}
 </style>
 </body></html>
