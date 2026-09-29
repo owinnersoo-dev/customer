@@ -492,7 +492,7 @@ body.tablet-app{padding:0!important;background:#eef2f7;min-width:720px}
       <button class="danger" onclick="resetData()">기록 초기화</button>
     </div>
   </section>
-</div></div></header><div class="section-layout-strip" id="sectionLayoutStrip"><span class="section-strip-title">페이지 순서</span><div class="section-strip" id="sectionOrderBar"><button type="button" class="section-chip" data-section-target="exerciseListPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>재활 운동 목록</span></button><button type="button" class="section-chip" data-section-target="patientInfoPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자 운동처방 정보</span></button><button type="button" class="section-chip" data-section-target="assessmentPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>회차별 임상 평가</span></button><button type="button" class="section-chip" data-section-target="patientRecordsPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자별 처방·수행 이력</span></button><button type="button" class="section-chip" data-section-target="rehabDashboard" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자 재활 대시보드</span></button><button type="button" class="section-chip" data-section-target="progressReportPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>1장 경과보고서</span></button><button type="button" class="section-chip" data-section-target="summaryPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>오늘 처방 요약</span></button><button type="button" class="section-chip" data-section-target="prescriptionPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>처방지 미리보기</span></button><button type="button" class="section-chip" data-section-target="adherencePanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>주간 운동 순응도</span></button><button type="button" class="section-chip" data-section-target="historyPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>운동 수행·완료 기록</span></button></div><div class="section-strip-help">잠금 해제 후 상단 한 줄에서 드래그하여 아래쪽 페이지 섹션 순서를 바꿀 수 있습니다. 고정 상태에서는 클릭하면 해당 섹션으로 이동합니다.</div></div><div class="workflow-floating-next" id="workflowFloatingNext"><div class="workflow-floating-copy"><span class="workflow-floating-step" id="workflowFloatingStep">1단계 · 환자 정보</span><span class="workflow-floating-label" id="workflowFloatingLabel">환자 운동처방 정보를 입력한 뒤 다음 단계로 이동하세요.</span></div><button type="button" id="workflowFloatingBtn" class="workflow-next" onclick="workflowPrimaryAction()">다음 · 사전 평가 →</button></div><main class="wrap"><section class="clinical-workflow" id="clinicalWorkflow"><div class="workflow-track"><button class="workflow-step active" id="wfStep1" onclick="workflowGo(1)"><span class="num">1</span>환자 정보</button><button class="workflow-step" id="wfStep2" onclick="workflowGo(2)"><span class="num">2</span>사전 평가</button><button class="workflow-step" id="wfStep3" onclick="workflowGo(3)"><span class="num">3</span>운동 선택·실행</button><button class="workflow-step" id="wfStep4" onclick="workflowGo(4)"><span class="num">4</span>사후 평가</button><button class="workflow-step" id="wfStep5" onclick="workflowGo(5)"><span class="num">5</span>기록 저장</button></div><div class="workflow-note"><span id="workflowGuide">환자 정보를 먼저 입력하세요.</span><button type="button" class="workflow-secondary" onclick="workflowGo(Math.max(1,clinicalWorkflow.step-1))">← 이전 단계</button></div></section><section id="exerciseListPanel" class="exercise-list-panel" data-section-title="재활 운동 목록"><div class="exercise-section-inner"><div class="flow-start-panel" id="flowStartPanel"><div class="flow-start-copy"><strong>선택 운동 단계별 실행</strong><span class="flow-start-count" id="flowSelectedCount">선택 0개</span><span>목록에서 운동을 선택한 뒤 한 동작씩 완료 여부를 기록하며 진행합니다.</span></div><div class="flow-start-actions"><button type="button" onclick="showSelectedOnlyForReview()">선택 운동 확인</button><button type="button" class="flow-primary" id="startExerciseFlowBtn" onclick="startSelectedExerciseFlow()">선택 운동으로 진행 →</button></div></div><div id="exerciseFlowPanel" class="exercise-flow-panel" style="display:none"></div><div id="pagerTop" class="pager"></div><div id="grid" class="grid"></div><div id="pagerBottom" class="pager"></div></div></section>
+</div></div></header><div class="section-layout-strip" id="sectionLayoutStrip"><span class="section-strip-title">페이지 순서</span><div class="section-strip" id="sectionOrderBar"><button type="button" class="section-chip" data-section-target="exerciseListPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>재활 운동 목록</span></button><button type="button" class="section-chip" data-section-target="patientInfoPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자 운동처방 정보</span></button><button type="button" class="section-chip" data-section-target="assessmentPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>회차별 임상 평가</span></button><button type="button" class="section-chip" data-section-target="patientRecordsPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자별 처방·수행 이력</span></button><button type="button" class="section-chip" data-section-target="rehabDashboard" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>환자 재활 대시보드</span></button><button type="button" class="section-chip" data-section-target="progressReportPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>1장 경과보고서</span></button><button type="button" class="section-chip" data-section-target="summaryPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>오늘 처방 요약</span></button><button type="button" class="section-chip" data-section-target="prescriptionPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>처방지 미리보기</span></button><button type="button" class="section-chip" data-section-target="adherencePanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>주간 운동 순응도</span></button><button type="button" class="section-chip" data-section-target="historyPanel" onclick="handleSectionChipClick(this)"><span class="section-drag-handle">⠿</span><span>운동 수행·완료 기록</span></button></div><div class="section-strip-help">잠금 해제 후 상단 한 줄에서 드래그하여 아래쪽 페이지 섹션 순서를 바꿀 수 있습니다. 고정 상태에서는 클릭하면 해당 섹션으로 이동합니다.</div></div><div class="workflow-floating-next" id="workflowFloatingNext"><div class="workflow-floating-copy"><span class="workflow-floating-step" id="workflowFloatingStep">1단계 · 환자 정보</span><span class="workflow-floating-label" id="workflowFloatingLabel">환자 운동처방 정보를 입력한 뒤 다음 단계로 이동하세요.</span></div><button type="button" id="workflowFloatingBtn" class="workflow-next" onclick="workflowPrimaryAction()">다음 · 사전 평가 →</button></div><main class="wrap"><section class="clinical-workflow" id="clinicalWorkflow"><div class="workflow-track"><button class="workflow-step active" id="wfStep1" onclick="workflowGo(1)"><span class="num">1</span>환자 정보</button><button class="workflow-step" id="wfStep2" onclick="workflowGo(2)"><span class="num">2</span>사전 평가</button><button class="workflow-step" id="wfStep3" onclick="workflowGo(3)"><span class="num">3</span>운동 선택·실행</button><button class="workflow-step" id="wfStep4" onclick="workflowGo(4)"><span class="num">4</span>사후 평가</button><button class="workflow-step" id="wfStep5" onclick="workflowGo(5)"><span class="num">5</span>기록 저장</button></div><div class="workflow-note"><span id="workflowGuide">환자 정보를 먼저 입력하세요.</span><button type="button" class="workflow-secondary" onclick="workflowGo(Math.max(1,clinicalWorkflow.step-1))">← 이전 단계</button></div></section><section id="exerciseListPanel" class="exercise-list-panel" data-section-title="재활 운동 목록"><div class="exercise-section-inner"><div class="flow-start-panel" id="flowStartPanel"><div class="flow-start-copy"><strong>선택 운동 단계별 실행</strong><span class="flow-start-count" id="flowSelectedCount">선택 0개</span><span>목록에서 운동을 선택한 뒤 한 동작씩 완료 여부를 기록하며 진행합니다.</span></div><div class="flow-start-actions"><button type="button" id="selectedExerciseReviewBtn" aria-pressed="false" onclick="showSelectedOnlyForReview()">선택 운동 확인</button><button type="button" class="flow-primary" id="startExerciseFlowBtn" onclick="startSelectedExerciseFlow()">선택 운동으로 진행 →</button></div></div><div id="exerciseFlowPanel" class="exercise-flow-panel" style="display:none"></div><div id="pagerTop" class="pager"></div><div id="grid" class="grid"></div><div id="pagerBottom" class="pager"></div></div></section>
 <section class="panel" id="patientInfoPanel"><h2>환자 운동처방 정보</h2><div class="patient-grid"><div class="field"><label>환자명</label><input id="patientName" type="text" placeholder="예: 홍길동" oninput="updatePatientField('name',this.value)"></div><div class="field"><label>작성일</label><input id="patientDate" type="date" onchange="updatePatientField('date',this.value)"></div><div class="field"><label>진단명 / 수술명</label><input id="patientDiagnosis" type="text" placeholder="예: 견갑 운동 조절 저하 / 회전근개 봉합 후" oninput="updatePatientField('diagnosis',this.value)"></div><div class="field"><label>부위</label><select id="patientSide" onchange="updatePatientField('side',this.value)"><option value="">선택</option><option value="우측">우측</option><option value="좌측">좌측</option><option value="양측">양측</option><option value="해당없음">해당없음</option></select></div><div class="field"><label>치료사</label><input id="therapistName" type="text" placeholder="예: 물리치료사 김대식" oninput="updatePatientField('therapist',this.value)"></div><div class="field"><label>운동 전 NRS</label><select id="nrsBefore" onchange="updatePatientField('nrsBefore',this.value)"><option value="">선택</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div><div class="field"><label>운동 후 NRS</label><select id="nrsAfter" onchange="updatePatientField('nrsAfter',this.value)"><option value="">선택</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option></select></div><div class="field span-2"><label>추가 메모 / 주의사항</label><textarea id="patientNote" placeholder="운동 시 통증 범위 피하기, 호흡 유지, 주 3~5회 시행 등" oninput="updatePatientField('note',this.value)"></textarea></div></div><div class="brand-row"><div class="field"><label>병원명</label><input id="hospitalName" type="text" placeholder="병원명" oninput="updatePatientField('hospital',this.value)"></div><div class="field"><label>연락처</label><input id="hospitalContact" type="text" placeholder="전화 / 주소 / 홈페이지" oninput="updatePatientField('contact',this.value)"></div><div class="field"><label>서명 / 담당자 표기</label><input id="signatureText" type="text" placeholder="예: 물리치료사 김대식" oninput="updatePatientField('signature',this.value)"></div><div class="field"><label>병원 로고</label><div class="image-upload"><input type="file" accept="image/*" onchange="uploadPatientImage('logo',this.files[0])"><img id="logoPreview" src="" alt="로고 미리보기"></div></div><div class="field"><label>QR 코드</label><div class="image-upload"><input type="file" accept="image/*" onchange="uploadPatientImage('qr',this.files[0])"><img id="qrPreview" src="" alt="QR 미리보기"></div></div></div><div class="rx-note">체크한 운동만 환자 운동 프로그램과 처방지에 반영됩니다. 운동 완료 체크도 자동 저장됩니다.</div><div class="assessment-footer-actions"><button type="button" class="workflow-next" onclick="workflowPatientNext()">다음 · 사전 평가 →</button></div></section>
 <section class="panel" id="assessmentPanel"><h2>회차별 임상 평가 · 치료 전/후 비교</h2>
 <div class="stage-row"><label>평가 단계<select id="evalStage" onchange="updateAssessment('evalStage',this.value)"><option value="auto">자동 구분</option><option value="initial">초기평가</option><option value="interim">중간평가</option><option value="final">최종평가</option></select></label><span class="rx-note">자동 구분은 첫 저장을 초기평가, 이후 저장을 중간평가로 지정합니다. 최종평가는 필요 시 직접 선택하세요.</span></div>
@@ -740,16 +740,20 @@ function toggleCompleted(id,v){setExerciseCompletedState(id,v);render();fillChar
 function updateExerciseFlowLauncher(){
   const count=selectedExercises().length;
   const badge=document.getElementById('flowSelectedCount');if(badge)badge.textContent=`선택 ${count}개`;
+  const reviewBtn=document.getElementById('selectedExerciseReviewBtn');if(reviewBtn){const active=!!state.ui.programOnly;reviewBtn.classList.toggle('active',active);reviewBtn.setAttribute('aria-pressed',String(active));reviewBtn.textContent=active?'선택 운동 확인 취소':'선택 운동 확인';}
   const btn=document.getElementById('startExerciseFlowBtn');if(btn){btn.disabled=count===0;btn.textContent=count?`선택 ${count}개 운동으로 진행 →`:'운동을 먼저 선택하세요';}
 }
 function showSelectedOnlyForReview(){
-  if(!selectedExercises().length){alertAndFocus('먼저 재활 운동 목록에서 운동을 선택하세요.','grid');return;}
-  state.ui.programOnly=true;page=1;save();render();scrollToTopOfExercises();
+  const active=!!state.ui.programOnly;
+  if(!active&&!selectedExercises().length){alertAndFocus('먼저 재활 운동 목록에서 운동을 선택하세요.','grid');return;}
+  state.ui.programOnly=!active;page=1;save();render();scrollToTopOfExercises();
 }
 function startSelectedExerciseFlow(skipFocus=false){
   if(clinicalWorkflow.step<3){const miss=workflowMissingAssessment('pre');if(miss){clinicalWorkflow.step=2;workflowUpdateUi();alertAndFocus('사전 평가를 먼저 완료하세요. '+miss[1],miss[0]);return;}clinicalWorkflow.step=3;workflowUpdateUi();}
   const ids=selectedExercises().map(e=>e.id);
   if(!ids.length){alertAndFocus('먼저 재활 운동 목록에서 운동을 선택하세요.','grid');return;}
+  /* 비활성 상태에서 시작하는 흐름은 새 운동 회차다. 과거 회차의 완료 체크를 초기화한다. */
+  if(!exerciseFlow.active)ids.forEach(id=>{if(state.settings[id])state.settings[id].completed=false});
   exerciseFlow={active:true,index:0,ids:[...ids],finished:false};
   state.ui.prescriptionPreview=false;
   save();render();
@@ -801,7 +805,7 @@ function renderExerciseFlow(){
   const e=currentFlowExercise();if(!e)return;
   const s=state.settings[e.id];
   const idx=exerciseFlow.index;
-  const stepButtons=ids.map((id,i)=>{const done=state.settings[id].completed;const cls=i===idx?'current':(done?'done':'todo');return `<button type="button" class="flow-step-dot ${cls}" onclick="flowGoTo(${i})" title="${i+1}번째 운동">${done?'✓':i+1}</button>`}).join('');
+  const stepButtons=ids.map((id,i)=>{const done=state.settings[id].completed;const cls=done?'done':(i===idx?'current':'todo');return `<button type="button" class="flow-step-dot ${cls}" onclick="flowGoTo(${i})" title="${i+1}번째 운동">${done?'✓':i+1}</button>`}).join('');
   let ro='';for(let i=5;i<=12;i++)ro+=`<option ${s.reps==i?'selected':''}>${i}</option>`;
   let so='';for(let i=2;i<=5;i++)so+=`<option ${s.sets==i?'selected':''}>${i}</option>`;
   const last=idx===ids.length-1;
@@ -1323,7 +1327,7 @@ function tabletAddPageHead(el,route){
  const m=tabletRouteMeta[route]||['',''];head.innerHTML=`<div><h2>${m[0]}</h2><span>${m[1]}</span></div>`;
 }
 function tabletGo(route){
- if(!tabletRoutes.includes(route))route='home';tabletRoute=route;
+ if(!tabletRoutes.includes(route))route='home';const previousTabletRoute=tabletRoute;tabletRoute=route;
  document.body.className=[...document.body.classList].filter(x=>!x.startsWith('tablet-route-')).join(' ');
  document.body.classList.add('tablet-app','tablet-route-'+route);
  document.getElementById('tabletHome').style.display=route==='home'?'block':'none';
@@ -1333,7 +1337,14 @@ function tabletGo(route){
  const next=document.getElementById('tabletNextBtn');if(next){const labels={register:'다음 · 상태 평가 →',pre:'다음 · 운동 선택 →',select:'다음 · 운동 기록 →',record:'다음 · 운동 후 평가 →',post:'저장하고 결과 확인 →',result:'완료 · 환자 목록으로'};next.textContent=labels[route]||'다음 →';next.classList.toggle('save',route==='post')}
  if(route==='pre')workflowSetAssessmentMode('pre');if(route==='post')workflowSetAssessmentMode('post');
  if(route==='select'){exerciseFlow.active=false;exerciseFlow.finished=false;state.ui.programOnly=false;render()}
- if(route==='record'){if(!exerciseFlow.active)startSelectedExerciseFlow(true);renderExerciseFlow()}
+ if(route==='record'){
+   /* 운동 선택에서 새 기록을 시작할 때 이전 회차 완료값은 이어받지 않는다. */
+   if(previousTabletRoute==='select'&&!exerciseFlow.active){
+     selectedExercises().forEach(e=>{if(state.settings[e.id])state.settings[e.id].completed=false});
+     save();
+   }
+   if(!exerciseFlow.active)startSelectedExerciseFlow(true);renderExerciseFlow()
+ }
  if(route==='result'){
    const main=document.querySelector('main.wrap');
    ['patientRecordsPanel','rehabDashboard','historyPanel','summaryPanel','adherencePanel','progressReportPanel'].forEach(id=>{const el=document.getElementById(id);if(main&&el)main.appendChild(el)});
@@ -3027,7 +3038,7 @@ const recordSessionV28=recordSession;recordSession=function(){stopAllExerciseTim
     </style>`;
     const bundle={title:`${bookEsc(p.name,'환자')} 실시 운동 책자`,html:pages.join(''),css:css+bookPolish};
     if(returnBundle===true)return bundle;
-    w.document.open();w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>${bundle.title}</title>${bundle.css}</head><body>${bundle.html}<script>window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close();
+    w.document.open();w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>${bundle.title}</title>${bundle.css}</head><body>${bundle.html}<script>window.onafterprint=()=>{try{window.opener&&window.opener.postMessage({type:'rehab-print-finished'},'*')}catch(e){}setTimeout(()=>window.close(),100)};window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close();
   };
   /* 기존 실행 명령을 버튼에서 제거하고 신규 명령만 직접 연결한다. */
   const bindNewBookletCommand=(root=document)=>{
@@ -3233,10 +3244,26 @@ const recordSessionV28=recordSession;recordSession=function(){stopAllExerciseTim
   printProgressReport=function(){
     const count=selectedExercises().length,exerciseFont=count>10?6.1:count>7?6.5:7;
     const css=`<style>@page{size:A4 portrait;margin:6mm}*{box-sizing:border-box}html,body{margin:0;background:#fff}body{font-family:Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#18233A;-webkit-print-color-adjust:exact;print-color-adjust:exact}.readable-print-sheet{width:198mm;height:285mm;margin:auto;overflow:hidden;background:#F4F7FA;padding:3.5mm}header{height:18mm;padding:3.2mm 4mm;border-radius:3mm;background:#18233A;color:#fff;display:flex;align-items:center}header h1{margin:0 0 1.2mm;font-size:17px}header p{margin:0;color:#DFE8F3;font-size:8px}.profile{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm;margin-top:1.7mm}.profile>div,.core,.compare-section,.lower>div,.exercise{border:1px solid #D9E2EC;border-radius:2.5mm;background:#fff}.profile>div{height:14mm;padding:1.7mm 2mm}.profile h2,.lower h2,.exercise h2{margin:0 0 .8mm;color:#1A519E;font-size:8px}.profile p{margin:0;color:#677383;font-size:6.9px;line-height:1.4}.profile b{color:#18233A}.core{margin-top:1.7mm;padding:1.8mm}.core>h2{margin:0 0 1.2mm;font-size:11px}.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:1.4mm}.kpis>div{height:20mm;padding:1mm;border:1px solid #D9E2EC;border-top:2px solid #1A519E;border-radius:2mm;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.kpis>div:nth-child(2){border-top-color:#168675}.kpis>div:nth-child(3){border-top-color:#3776BE}.kpis>div:nth-child(4){border-top-color:#147D76}.kpis>div:nth-child(5){border-top-color:#677383}.kpis small{color:#677383;font-size:7px;font-weight:800}.kpis strong{margin:.7mm 0;color:#18233A;font-size:12.5px}.kpis em{color:#3E4E65;font-size:6px;font-style:normal}.completion{width:12mm;height:12mm;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#fff 52%,transparent 55%),conic-gradient(#168675 calc(var(--pct)*1%),#DCE4ED 0)}.completion b{font-size:8px}.compare-section{margin-top:1.7mm;padding:1.7mm}.compare-section>h2{margin:0 0 1.2mm;color:#18233A;font-size:9px}.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4mm}.cmp-card{height:19mm;padding:1.3mm 1.6mm;border:1px solid #D9E2EC;border-radius:2mm}.cmp-head,.cmp-foot{display:flex;align-items:center;justify-content:space-between;gap:1mm}.cmp-head b{font-size:7.5px}.cmp-head small,.cmp-foot small{color:#677383;font-size:5.6px}.cmp-values{display:grid;grid-template-columns:1fr 4mm 1fr;align-items:center;gap:.7mm;margin-top:.7mm}.cmp-values>span{padding:.7mm;border-radius:1.3mm;background:#F4F7FA;text-align:center}.cmp-values>span.after{background:#EAF2FC}.cmp-values i{display:block;color:#677383;font-size:5.4px;font-style:normal}.cmp-values strong{display:block;margin-top:.2mm;font-size:8.8px}.cmp-values .after strong{color:#1A519E}.cmp-values>em{color:#8A98AA;font-size:8px;font-style:normal;text-align:center}.cmp-bar{height:1.2mm;margin:.8mm 0 .6mm;border-radius:99px;overflow:hidden;background:#E2E8EF}.cmp-bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#1A519E,#168675)}.cmp-foot b{padding:.3mm .8mm;border-radius:99px;font-size:5.5px}.cmp-foot .improved{background:#E2F5F1;color:#087A6C}.cmp-foot .same{background:#EEF1F4;color:#5F6B78}.cmp-foot .decreased{background:#FFF1E8;color:#A64B17}.cmp-foot .empty{background:#FFF8E8;color:#8A6415}.lower{display:grid;grid-template-columns:1fr 1fr;gap:1.7mm;margin-top:1.7mm}.lower>div{height:31mm;padding:1.7mm;overflow:hidden}table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:6.4px}th,td{padding:.65mm .7mm;border-bottom:1px solid #D9E2EC;text-align:center;line-height:1.2;overflow-wrap:anywhere}th{background:#18233A;color:#fff}th:first-child,td:first-child{text-align:left}td:first-child{font-weight:700}.positive{color:#C63D18!important}.negative,.done{color:#168675!important;font-weight:800}.todo{color:#A64B17!important;font-weight:800}.empty{margin:2mm 0;padding:3mm;border-radius:2mm;background:#F4F7FA;color:#677383;font-size:7px;text-align:center}.exercise{margin-top:1.7mm;padding:1.7mm;max-height:39mm;overflow:hidden}.exercise table{font-size:${exerciseFont}px}.exercise th,.exercise td{padding:${count>9?'.45':'.62'}mm .55mm}.exercise th:nth-child(1){width:25%}.exercise th:nth-child(2),.exercise th:nth-child(3){width:14%}.exercise th:nth-child(4){width:12%}.exercise th:nth-child(5){width:9%}.exercise th:nth-child(6){width:26%}footer{display:flex;justify-content:space-between;gap:4mm;margin-top:1.5mm;padding-top:1.2mm;border-top:1px solid #C9D5E1;color:#677383;font-size:6.5px}footer span:first-child{max-width:75%}@media print{.readable-print-sheet{width:100%;height:285mm}}</style>`;
-    const safePrintCss=css+`<style>@page{size:A4 portrait;margin:6mm}.readable-print-sheet{height:282mm!important;max-height:282mm!important}.readable-print-sheet .exercise,.readable-print-sheet footer,.readable-print-sheet tr{break-inside:avoid!important;page-break-inside:avoid!important}@media print{.readable-print-sheet{height:282mm!important;max-height:282mm!important}}</style>`;
+    const safePrintCss=css+`<style>
+      @page{size:A4 portrait;margin:6mm}.readable-print-sheet{height:282mm!important;max-height:282mm!important;background:#eef1f4!important;color:#24384b!important}
+      .readable-print-sheet>header{background:#304a62!important;border-radius:1.8mm!important;border-left:3mm solid #35b8c8!important}
+      .readable-print-sheet>header h1{letter-spacing:-.03em!important}.readable-print-sheet>header p{color:#e7edf2!important}
+      .readable-print-sheet .profile>div,.readable-print-sheet .core,.readable-print-sheet .compare-section,.readable-print-sheet .lower>div,.readable-print-sheet .exercise{border-color:#dfe5ea!important;border-radius:3mm!important;background:#fff!important;box-shadow:0 .7mm 2mm rgba(48,74,98,.055)!important}
+      .readable-print-sheet .profile h2,.readable-print-sheet .lower h2,.readable-print-sheet .exercise h2,.readable-print-sheet .compare-section>h2{color:#304a62!important}
+      .readable-print-sheet .core>h2{color:#304a62!important;border-left:1.2mm solid #35b8c8!important;padding-left:1.5mm!important}
+      .readable-print-sheet .kpis>div{border:0!important;border-top:1.2mm solid #4f79bd!important;background:#f8fafb!important}
+      .readable-print-sheet .kpis>div:nth-child(2){border-top-color:#44bfae!important}.readable-print-sheet .kpis>div:nth-child(3){border-top-color:#35b8e0!important}.readable-print-sheet .kpis>div:nth-child(4){border-top-color:#10a83a!important}.readable-print-sheet .kpis>div:nth-child(5){border-top-color:#f0b218!important}
+      .readable-print-sheet .completion{background:radial-gradient(circle,#fff 52%,transparent 55%),conic-gradient(#44bfae calc(var(--pct)*1%),#dfe7ec 0)!important}
+      .readable-print-sheet .cmp-card{border-color:#dfe5ea!important;background:#fbfcfd!important}.readable-print-sheet .cmp-values>span{background:#f0f3f6!important}.readable-print-sheet .cmp-values>span.after{background:#e8f6f7!important}.readable-print-sheet .cmp-values .after strong{color:#16899a!important}
+      .readable-print-sheet .cmp-bar{background:#e3eaee!important}.readable-print-sheet .cmp-bar>i{background:linear-gradient(90deg,#4f79bd,#35b8c8,#44bfae)!important}
+      .readable-print-sheet th{background:#e9eef2!important;color:#304a62!important;border-bottom:1px solid #cfd8df!important}.readable-print-sheet td{border-bottom-color:#dde4e9!important}.readable-print-sheet .done,.readable-print-sheet .negative{color:#07933a!important}
+      .readable-print-sheet footer{color:#66798a!important;border-top-color:#cbd6de!important}
+      .readable-print-sheet .exercise,.readable-print-sheet footer,.readable-print-sheet tr{break-inside:avoid!important;page-break-inside:avoid!important}
+      @media print{.readable-print-sheet{height:282mm!important;max-height:282mm!important}}
+    </style>`;
     const bundle={title:'재활 종합결과보고서',html:readablePrintReport(),css:safePrintCss};
     if(arguments[0]===true)return bundle;
-    const w=window.open('','_blank','width=850,height=1100');if(!w){alert('팝업 차단을 해제해 주세요.');return}w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>${bundle.title}</title>${bundle.css}</head><body>${bundle.html}<script>window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close();
+    const w=window.open('','_blank','width=850,height=1100');if(!w){alert('팝업 차단을 해제해 주세요.');return}w.document.write(`<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>${bundle.title}</title>${bundle.css}</head><body>${bundle.html}<script>window.onafterprint=()=>{try{window.opener&&window.opener.postMessage({type:'rehab-print-finished'},'*')}catch(e){}setTimeout(()=>window.close(),100)};window.onload=()=>setTimeout(()=>window.print(),350)<\/script></body></html>`);w.document.close();
   };
 })();
 </script>
@@ -3390,7 +3417,58 @@ function tabletPrintCombinedPdf(){
 </script>
 <style id="mobile-date-select-v55">
 .mobile-date-select{display:none;grid-template-columns:1.35fr .9fr .9fr;gap:7px;width:100%}.mobile-date-select select{width:100%;min-width:0}
-@media screen and (max-width:680px){.mobile-date-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}.mobile-date-select{display:grid}}
+@media screen and (max-width:1100px){.mobile-date-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}.mobile-date-select{display:grid}}
+body.manual-embedded-preview .mobile-date-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+body.manual-embedded-preview .mobile-date-select{display:grid!important}
+</style>
+<style id="patient-information-line-theme-v56">
+/* 참고 UI 기반 환자 정보 입력: 박스형 입력을 줄이고 하단선으로 정돈 */
+#patientInfoPanel{background:#e8edf4!important;border:1px solid #d3dbe6!important;padding:18px!important}
+#patientInfoPanel>h2{margin:0 0 13px!important;color:#263f58!important;font-size:20px!important}
+#patientInfoPanel .patient-grid,#patientInfoPanel .brand-row{padding:18px 20px!important;border:1px solid #dde3ea!important;border-radius:18px!important;background:#fff!important;box-shadow:0 10px 26px rgba(31,52,73,.06)!important}
+#patientInfoPanel .brand-row{margin-top:12px!important}
+#patientInfoPanel .field{gap:5px!important;padding:2px 0 7px!important;background:transparent!important;border:0!important}
+#patientInfoPanel .field>label{color:#68798b!important;font-size:11px!important;font-weight:800!important;letter-spacing:-.01em!important}
+#patientInfoPanel input:not([type="file"]),#patientInfoPanel select,#patientInfoPanel textarea{width:100%!important;min-width:0!important;border:0!important;border-bottom:1px solid #cfd7e1!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#20364d!important;font-weight:750!important;padding:8px 2px 9px!important;outline:0!important}
+#patientInfoPanel input:not([type="file"]):focus,#patientInfoPanel select:focus,#patientInfoPanel textarea:focus{border-bottom:2px solid #3e7ee8!important;padding-bottom:8px!important;background:linear-gradient(180deg,transparent 72%,rgba(62,126,232,.055))!important}
+#patientInfoPanel input::placeholder,#patientInfoPanel textarea::placeholder{color:#c0c9d3!important;font-weight:650!important;opacity:1!important}
+#patientInfoPanel textarea{min-height:72px!important;line-height:1.55!important;resize:vertical!important}
+#patientInfoPanel .image-upload{border:1px dashed #cbd4df!important;border-radius:12px!important;background:#f7f9fb!important;padding:9px!important}
+#patientInfoPanel .assessment-footer-actions{margin-top:13px!important;padding-top:13px!important;border-top:1px solid #cfd7e1!important}
+#patientInfoPanel button:not(.workflow-next){background:#fff!important;border:1px solid #cbd4df!important;color:#4b5f72!important;box-shadow:none!important}
+#patientInfoPanel .workflow-next{background:#3e7ee8!important;border-color:#3e7ee8!important;color:#fff!important;box-shadow:0 7px 16px rgba(62,126,232,.2)!important}
+#patientInfoPanel .rx-note{color:#728194!important;background:rgba(255,255,255,.58)!important;border-color:#d6dee7!important}
+#patientInfoPanel .mobile-date-select{padding:0!important}.mobile-date-select select{color:#20364d!important;background-color:transparent!important}
+/* 이전 고특이도 필드 카드 규칙 제거 */
+body.tablet-app.tablet-route-register #patientInfoPanel .patient-grid>.field,
+body.tablet-app.tablet-route-register #patientInfoPanel .brand-row>.field{padding:2px 0 7px!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important}
+body.tablet-app.tablet-route-register #patientInfoPanel .patient-grid>.field:hover,
+body.tablet-app.tablet-route-register #patientInfoPanel .brand-row>.field:hover{border:0!important;background:transparent!important;box-shadow:none!important}
+/* 모든 업무 단계에 동일한 바깥 배경과 흰색 콘텐츠 카드 체계 적용 */
+body.tablet-app.tablet-route-register #patientInfoPanel,
+body.tablet-app.tablet-route-pre #assessmentPanel,
+body.tablet-app.tablet-route-post #assessmentPanel,
+body.tablet-app.tablet-route-select #exerciseListPanel,
+body.tablet-app.tablet-route-record #exerciseListPanel,
+body.tablet-app.tablet-route-result #tabletComprehensiveResult .tablet-result-sheet{background:#e8edf4!important;border:0!important;box-shadow:none!important}
+body.tablet-app.tablet-route-pre #assessmentPanel .assessment-group,
+body.tablet-app.tablet-route-post #assessmentPanel .assessment-group,
+body.tablet-app.tablet-route-select #exerciseListPanel .card,
+body.tablet-app.tablet-route-record #exerciseFlowPanel .flow-current,
+body.tablet-app.tablet-route-result #tabletComprehensiveResult .clinical-visual-summary,
+body.tablet-app.tablet-route-result #tabletComprehensiveResult .result-block{background:#fff!important;border:1px solid #dce3e9!important;box-shadow:0 8px 22px rgba(31,52,73,.05)!important}
+body.tablet-app main.wrap button:not(.primary):not(.next):not(.workflow-next):not(.flow-primary):not(.flow-btn-complete):not(.combined-pdf-btn){background:#fff!important;border-color:#c8d2dc!important;color:#516579!important;box-shadow:none!important}
+body.tablet-app main.wrap .workflow-next,body.tablet-app main.wrap .next,body.tablet-app main.wrap .flow-primary,body.tablet-app main.wrap .flow-btn-complete{background:#3e7ee8!important;border-color:#3e7ee8!important;color:#fff!important}
+.tablet-route-result #tabletComprehensiveResult .tablet-result-sheet{background:#eef1f4!important;border-color:#d3dce4!important}
+.tablet-route-result #tabletComprehensiveResult .result-hero{background:#304a62!important;border-left:6px solid #35b8c8!important;color:#fff!important}
+.tablet-route-result #tabletComprehensiveResult .clinical-report-profile>div,.tablet-route-result #tabletComprehensiveResult .clinical-visual-summary,.tablet-route-result #tabletComprehensiveResult .visual-chart,.tablet-route-result #tabletComprehensiveResult .result-table-wrap{background:#fff!important;border-color:#dce4ea!important}
+.tablet-route-result #tabletComprehensiveResult .visual-summary-head h4,.tablet-route-result #tabletComprehensiveResult .visual-chart h5{color:#304a62!important}
+.tablet-route-result #tabletComprehensiveResult .result-printbar{background:#e4e9ee!important;border:1px solid #d0d9e1!important}
+.tablet-route-result #tabletComprehensiveResult .result-printbar button{background:#fff!important;border:1px solid #c7d1da!important;color:#526577!important;box-shadow:none!important}
+.tablet-route-result #tabletComprehensiveResult .result-printbar .booklet-btn{background:#fff!important;border-color:#9eacb8!important;color:#304a62!important}
+.tablet-route-result #tabletComprehensiveResult .result-printbar .combined-pdf-btn{background:#35a999!important;border-color:#35a999!important;color:#fff!important}
+.tablet-route-result #tabletComprehensiveResult .result-printbar .primary{background:#3e7ee8!important;border-color:#3e7ee8!important;color:#fff!important}
+@media(max-width:680px){#patientInfoPanel{padding:11px!important}#patientInfoPanel .patient-grid,#patientInfoPanel .brand-row{padding:13px!important;border-radius:14px!important}#patientInfoPanel>h2{font-size:18px!important}}
 </style>
 <script>
 /* 모바일 작성일·생년월일: 연/월/일 개별 선택 v55 */
@@ -3398,25 +3476,235 @@ function tabletPrintCombinedPdf(){
   const pad=n=>String(n).padStart(2,'0');
   function daysInMonth(year,month){return new Date(Number(year),Number(month),0).getDate()}
   function installDateSelect(inputId,fieldKey,kind){
-    const input=document.getElementById(inputId);if(!input||input.dataset.dateSelectReady==='1')return;
+    const input=document.getElementById(inputId);if(!input)return;
     input.dataset.dateSelectReady='1';input.classList.add('mobile-date-native');
-    const box=document.createElement('div');box.className='mobile-date-select';box.dataset.for=inputId;
-    box.innerHTML='<select class="date-year" aria-label="년 선택"><option value="">년</option></select><select class="date-month" aria-label="월 선택"><option value="">월</option></select><select class="date-day" aria-label="일 선택"><option value="">일</option></select>';
-    input.insertAdjacentElement('afterend',box);
+    let box=input.parentElement?.querySelector(`.mobile-date-select[data-for="${inputId}"]`);
+    if(!box){box=document.createElement('div');box.className='mobile-date-select';box.dataset.for=inputId;input.insertAdjacentElement('afterend',box)}
+    /* 미리보기 DOM 복제 시 HTML은 복제되지만 이벤트는 사라진다. 런타임 속성으로 재연결 여부를 판단한다. */
+    if(box._syncDate)return;
+    box.innerHTML=`<select class="date-year" aria-label="년 선택" onchange="tabletDatePartChanged('${inputId}','${fieldKey}',this)"><option value="">년</option></select><select class="date-month" aria-label="월 선택" onchange="tabletDatePartChanged('${inputId}','${fieldKey}',this)"><option value="">월</option></select><select class="date-day" aria-label="일 선택" onchange="tabletDatePartChanged('${inputId}','${fieldKey}',this)"><option value="">일</option></select>`;
     const year=box.querySelector('.date-year'),month=box.querySelector('.date-month'),day=box.querySelector('.date-day'),now=new Date(),current=now.getFullYear();
     const first=kind==='birth'?current:current-5,last=kind==='birth'?1900:current+2,step=kind==='birth'?-1:1;
     for(let y=first;step>0?y<=last:y>=last;y+=step)year.add(new Option(`${y}년`,String(y)));
     for(let m=1;m<=12;m++)month.add(new Option(`${m}월`,pad(m)));
     const rebuildDays=selected=>{const max=year.value&&month.value?daysInMonth(year.value,month.value):31;day.innerHTML='<option value="">일</option>';for(let d=1;d<=max;d++)day.add(new Option(`${d}일`,pad(d)));if(selected&&Number(selected)<=max)day.value=pad(selected)};
-    const commit=()=>{const value=year.value&&month.value&&day.value?`${year.value}-${month.value}-${day.value}`:'';input.value=value;updatePatientField(fieldKey,value);input.dispatchEvent(new Event('change',{bubbles:true}))};
     const sync=()=>{const match=String(input.value||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);year.value=match?match[1]:'';month.value=match?match[2]:'';rebuildDays(match?match[3]:'');day.value=match?match[3]:''};
-    year.addEventListener('change',()=>{rebuildDays(day.value);commit()});month.addEventListener('change',()=>{rebuildDays(day.value);commit()});day.addEventListener('change',commit);input.addEventListener('change',sync);box._syncDate=sync;sync();
+    box._rebuildDays=rebuildDays;input.addEventListener('change',sync);box._syncDate=sync;sync();
   }
+  window.tabletDatePartChanged=function(inputId,fieldKey,control){
+    const input=document.getElementById(inputId),box=input?.parentElement?.querySelector(`.mobile-date-select[data-for="${inputId}"]`);if(!input||!box)return;
+    const year=box.querySelector('.date-year'),month=box.querySelector('.date-month'),day=box.querySelector('.date-day');
+    if(control!==day){const previous=day.value;box._rebuildDays?.(previous)}
+    if(!(year.value&&month.value&&day.value))return;
+    const value=`${year.value}-${month.value}-${day.value}`;
+    input.value=value;state.patient[fieldKey]=value;save();
+    if(fieldKey==='date'){renderPatientRecords();renderRehabDashboard()}
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+  };
   function installAll(){installDateSelect('patientDate','date','record');installDateSelect('patientBirthDate','birthDate','birth')}
   function syncAll(){document.querySelectorAll('.mobile-date-select').forEach(box=>box._syncDate?.())}
   const previousRender=window.renderPatientFields;window.renderPatientFields=function(){const result=previousRender.apply(this,arguments);installAll();syncAll();return result};
   document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>{installAll();syncAll()},0));
+  new MutationObserver(()=>installAll()).observe(document.documentElement,{childList:true,subtree:true});
   setTimeout(()=>{installAll();syncAll()},0);
 })();
 </script>
+<style id="patient-flow-print-fixes-v57">
+/* 신규 환자 등록: 남아 있던 카드형/둥근 테두리를 모든 중첩 필드에서 제거 */
+html body.tablet-app.tablet-route-register #patientInfoPanel .patient-grid,
+html body.tablet-app.tablet-route-register #patientInfoPanel .brand-row{
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+}
+html body.tablet-app.tablet-route-register #patientInfoPanel .patient-grid .field,
+html body.tablet-app.tablet-route-register #patientInfoPanel .brand-row .field,
+html body.tablet-app.tablet-route-register #patientInfoPanel .patient-extra-fields .field,
+html body.tablet-app.tablet-route-register #patientInfoPanel .patient-physical-fields .field{
+  padding:2px 0 7px!important;border:0!important;border-radius:0!important;
+  outline:0!important;background:transparent!important;box-shadow:none!important;
+}
+html body.tablet-app.tablet-route-register #patientInfoPanel .field:hover,
+html body.tablet-app.tablet-route-register #patientInfoPanel .field:focus-within{
+  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+}
+html body.tablet-app.tablet-route-register #patientInfoPanel .field::before,
+html body.tablet-app.tablet-route-register #patientInfoPanel .field::after{display:none!important}
+
+/* 운동 기록: 완료한 단계는 현재 위치와 관계없이 명확한 초록색으로 표시 */
+body.tablet-app .flow-step-dot.done,
+body.tablet-app main.wrap button.flow-step-dot.done{
+  background:#16a34a!important;border-color:#15803d!important;color:#fff!important;
+  box-shadow:0 0 0 3px rgba(22,163,74,.16)!important;
+}
+body.tablet-app .flow-step-dot.current,
+body.tablet-app main.wrap button.flow-step-dot.current{
+  background:#3e7ee8!important;border-color:#3e7ee8!important;color:#fff!important;
+}
+
+/* 결과 확인 출력 버튼: 기존 계열색 복원 + 누름 피드백 */
+body.tablet-app .result-master-actions button.report,
+body.tablet-app .result-printbar button:not(.booklet-btn):not(.combined-pdf-btn):not(.primary){
+  background:#1A519E!important;border-color:#1A519E!important;color:#fff!important;
+}
+body.tablet-app .result-master-actions button.booklet,
+body.tablet-app .result-printbar .booklet-btn,
+body.tablet-app button.result-booklet-top,
+body.tablet-app .result-location-note button,
+body.tablet-app #resultBookletDock button{
+  background:#18263A!important;border-color:#18263A!important;color:#fff!important;
+}
+body.tablet-app .result-master-actions button,
+body.tablet-app .result-printbar button,
+body.tablet-app button.result-booklet-top,
+body.tablet-app .result-location-note button,
+body.tablet-app #resultBookletDock button{
+  position:relative;overflow:hidden;transition:transform .12s ease,filter .16s ease,box-shadow .16s ease!important;
+  box-shadow:0 5px 12px rgba(24,38,58,.16)!important;
+  -webkit-tap-highlight-color:transparent;
+}
+body.tablet-app .result-master-actions button:active,
+body.tablet-app .result-printbar button:active,
+body.tablet-app button.result-booklet-top:active,
+body.tablet-app .result-location-note button:active,
+body.tablet-app #resultBookletDock button:active{transform:scale(.965)!important;filter:brightness(.9)!important}
+body.tablet-app button.print-clicked{animation:resultPrintTap .34s ease!important}
+@keyframes resultPrintTap{0%{transform:scale(1)}45%{transform:scale(.95);filter:brightness(.88)}100%{transform:scale(1);filter:brightness(1)}}
+@media(max-width:680px){
+  html body.tablet-app.tablet-route-register #patientInfoPanel .patient-grid,
+  html body.tablet-app.tablet-route-register #patientInfoPanel .brand-row{border-radius:0!important}
+}
+</style>
+<script>
+/* 출력 후 모바일·태블릿에서 결과 확인 화면으로 안전하게 복귀 */
+(()=>{
+  let printReturnAt=0;
+  const outputSelector='.result-master-actions .report,.result-master-actions .booklet,.result-printbar button,.result-booklet-top,.result-location-note button,#resultBookletDock button,.report-onepage,[data-booklet-command="v50"]';
+  function returnToResult(){
+    if(!printReturnAt)return;
+    printReturnAt=0;
+    try{if(typeof tabletGo==='function')tabletGo('result')}catch(_e){}
+    setTimeout(()=>{
+      const target=document.getElementById('patientRecordsPanel')||document.getElementById('tabletComprehensiveResult');
+      target?.scrollIntoView({block:'start'});
+    },80);
+  }
+  function armPrintReturn(button){
+    printReturnAt=Date.now();
+    button?.classList.add('print-clicked');
+    setTimeout(()=>button?.classList.remove('print-clicked'),380);
+  }
+  document.addEventListener('click',event=>{
+    const button=event.target.closest?.(outputSelector);
+    if(button)armPrintReturn(button);
+  },true);
+  window.addEventListener('message',event=>{if(event.data?.type==='rehab-print-finished')returnToResult()});
+  window.addEventListener('focus',()=>{
+    if(printReturnAt&&Date.now()-printReturnAt>450)setTimeout(returnToResult,60);
+  });
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden&&printReturnAt&&Date.now()-printReturnAt>450)setTimeout(returnToResult,60);
+  });
+})();
+</script>
+<style id="tablet-completion-nrs-output-v58">
+/* 공통 중립 버튼 규칙보다 높은 우선순위로 완료 단계 색상을 유지 */
+html body.tablet-app main.wrap #exerciseFlowPanel .flow-steps button.flow-step-dot.done,
+html body.manual-embedded-preview main.wrap #exerciseFlowPanel .flow-steps button.flow-step-dot.done{
+  background:#16a34a!important;background-color:#16a34a!important;
+  border-color:#15803d!important;color:#fff!important;
+  box-shadow:0 0 0 4px rgba(22,163,74,.16)!important;
+}
+html body.tablet-app main.wrap #exerciseFlowPanel .flow-steps button.flow-step-dot.done:hover,
+html body.tablet-app main.wrap #exerciseFlowPanel .flow-steps button.flow-step-dot.done:focus-visible{
+  background:#15803d!important;background-color:#15803d!important;color:#fff!important;
+}
+
+/* 태블릿 치료 전·후 NRS: 문구 구조, 색상, 높이와 정렬을 동일하게 통일 */
+html body.tablet-app #assessmentPanel #assessmentPreNrs,
+html body.tablet-app #assessmentPanel .tablet-post-nrs{
+  min-height:74px!important;margin:0 0 14px!important;padding:13px 18px!important;
+  align-items:center!important;gap:10px 20px!important;
+  grid-template-columns:max-content max-content minmax(260px,1fr)!important;
+  border:1px solid #a9c9ee!important;border-left:6px solid #1a519e!important;
+  border-radius:14px!important;background:#eaf2fc!important;box-shadow:none!important;
+}
+html body.tablet-app.tablet-route-pre #assessmentPanel #assessmentPreNrs,
+html body.tablet-app.tablet-route-post #assessmentPanel .tablet-post-nrs{display:grid!important}
+html body.tablet-app.tablet-route-pre #assessmentPanel .tablet-post-nrs,
+html body.tablet-app.tablet-route-post #assessmentPanel #assessmentPreNrs{display:none!important}
+html body.tablet-app #assessmentPanel #assessmentPreNrs>strong,
+html body.tablet-app #assessmentPanel .tablet-post-nrs>strong{
+  margin:0!important;color:#1a519e!important;font-size:15px!important;font-weight:900!important;
+  line-height:1.25!important;white-space:nowrap!important;
+}
+html body.tablet-app #assessmentPanel #assessmentPreNrs>label,
+html body.tablet-app #assessmentPanel .tablet-post-nrs>label{
+  display:flex!important;align-items:center!important;gap:10px!important;margin:0!important;
+  color:#18233a!important;font-size:15px!important;font-weight:900!important;white-space:nowrap!important;
+}
+html body.tablet-app #assessmentPanel #assessmentPreNrs select,
+html body.tablet-app #assessmentPanel .tablet-post-nrs select{
+  width:130px!important;min-width:130px!important;height:46px!important;min-height:46px!important;
+  margin:0!important;padding:7px 12px!important;border:1px solid #c5d3e2!important;
+  border-radius:10px!important;background:#fff!important;color:#172033!important;font-size:16px!important;
+}
+html body.tablet-app #assessmentPanel #assessmentPreNrs>span,
+html body.tablet-app #assessmentPanel .tablet-post-nrs>span{
+  margin:0!important;color:#52677c!important;font-size:12px!important;line-height:1.4!important;
+}
+
+/* 결과 확인의 핵심 출력 버튼 색상 고정 */
+html body.tablet-app main.wrap #resultMasterTools .result-master-actions button.report{
+  background:#1a519e!important;background-color:#1a519e!important;
+  border-color:#1a519e!important;color:#fff!important;box-shadow:0 6px 14px rgba(26,81,158,.22)!important;
+}
+html body.tablet-app main.wrap #resultMasterTools .result-master-actions button.booklet{
+  background:#18263a!important;background-color:#18263a!important;
+  border-color:#18263a!important;color:#fff!important;box-shadow:0 6px 14px rgba(24,38,58,.22)!important;
+}
+html body.tablet-app main.wrap #resultMasterTools .result-master-actions button.report:hover{background:#164784!important}
+html body.tablet-app main.wrap #resultMasterTools .result-master-actions button.booklet:hover{background:#101d2e!important}
+
+@media screen and (max-width:900px){
+  html body.tablet-app #assessmentPanel #assessmentPreNrs,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs{
+    grid-template-columns:max-content minmax(0,1fr)!important;gap:9px 14px!important;
+  }
+  html body.tablet-app #assessmentPanel #assessmentPreNrs>span,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs>span{grid-column:1/-1!important}
+  html body.tablet-app #assessmentPanel #assessmentPreNrs>label,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs>label{justify-content:flex-end!important}
+}
+@media screen and (max-width:680px){
+  html body.tablet-app #assessmentPanel #assessmentPreNrs,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs{grid-template-columns:1fr!important;padding:12px!important}
+  html body.tablet-app #assessmentPanel #assessmentPreNrs>label,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs>label{display:grid!important;grid-template-columns:1fr!important;justify-content:stretch!important;white-space:normal!important}
+  html body.tablet-app #assessmentPanel #assessmentPreNrs select,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs select{width:100%!important;min-width:0!important}
+  html body.tablet-app #assessmentPanel #assessmentPreNrs>span,
+  html body.tablet-app #assessmentPanel .tablet-post-nrs>span{grid-column:1!important}
+}
+</style>
+<style id="result-chart-heading-contrast-v59">
+/* 결과 확인 ROM·MMT 그래프 제목: 연한 남색 배경과 흰색 글자로 대비 보정 */
+html body.tablet-app.tablet-route-result main.wrap #tabletComprehensiveResult .clinical-visual-summary .visual-chart>h5{
+  background:#496b8d!important;background-color:#496b8d!important;
+  border-bottom-color:#6f8dab!important;color:#fff!important;
+  -webkit-text-fill-color:#fff!important;text-shadow:0 1px 1px rgba(15,35,55,.2)!important;
+}
+</style>
+<style id="selected-exercise-review-toggle-v60">
+html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn{
+  transition:background-color .16s ease,border-color .16s ease,color .16s ease,transform .12s ease!important;
+}
+html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn.active,
+html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn[aria-pressed="true"]{
+  background:#168675!important;background-color:#168675!important;border-color:#168675!important;
+  color:#fff!important;box-shadow:0 5px 13px rgba(22,134,117,.2)!important;
+}
+html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn.active:hover{
+  background:#0f7567!important;background-color:#0f7567!important;
+}
+html body.tablet-app main.wrap #flowStartPanel .flow-start-actions #selectedExerciseReviewBtn:active{transform:scale(.97)!important}
+</style>
 </body></html>
