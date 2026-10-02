@@ -4081,4 +4081,39 @@ html body.tablet-app.tablet-route-record #exerciseListPanel #pagerBottom{display
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&preview)closeBooklet()});
 })();
 </script>
+
+<style id="borderless-exercise-navigation-v67">
+html body.tablet-app #exerciseListPanel .pager button,
+html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button{
+  border:0!important;
+  box-shadow:none!important;
+  border-radius:0!important;
+  background:transparent!important;
+  transition:transform .12s ease,background-color .15s ease,color .15s ease!important;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+html body.tablet-app #exerciseListPanel .pager button.active,
+html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button.active{
+  background:#eaf1fa!important;
+  color:#1a519e!important;
+  font-weight:800!important;
+}
+html body.tablet-app #exerciseListPanel .pager button:active,
+html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button:active{
+  transform:scale(.94)!important;
+  background:#dce8f6!important;
+}
+html body.tablet-app #exerciseListPanel .pager button:focus-visible,
+html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button:focus-visible{
+  outline:2px solid #1a519e!important;
+  outline-offset:2px;
+}
+@media(prefers-reduced-motion:reduce){
+  html body.tablet-app #exerciseListPanel .pager button,
+  html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button{
+    transition:none!important;
+  }
+}
+</style>
 </body></html>
