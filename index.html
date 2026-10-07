@@ -4397,6 +4397,17 @@ html body.tablet-app [data-ui-picked]{outline:2px dashed #2563eb!important;outli
 })();
 </script>
 <style id="floating-page-navigation-v69">
+/* 터치 기기의 업무 화면 폭은 저장된 PC 편집 폭보다 우선한다. */
+@media screen{
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel){width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;transform:none!important;zoom:1!important}
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel) :is(.tablet-shell,.tablet-topbar,main.wrap,#tabletHome,#patientInfoPanel,#patientInfoPanel>.patient-grid,#patientInfoPanel>.brand-row,#patientInfoPanel>.tablet-page-title){width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important;margin-left:0!important;margin-right:0!important;align-self:stretch!important;justify-self:stretch!important;flex-basis:auto!important}
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel) main.wrap{display:block!important}
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel) #patientInfoPanel :is(.patient-grid,.brand-row){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;justify-content:stretch!important}
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel) #patientInfoPanel :is(.patient-grid,.brand-row)>.field{width:100%!important;max-width:none!important;min-width:0!important;justify-self:stretch!important}
+}
+@media screen and (max-width:680px){
+ html body.tablet-app:not(.ui-admin-pc):not(#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel#uiAdminPanel) #patientInfoPanel :is(.patient-grid,.brand-row){grid-template-columns:minmax(0,1fr)!important}
+}
 /* 편집창을 실제로 사용하는 PC 외에는 우측 예약 공간을 남기지 않는다. */
 @media screen{
  html body.tablet-app:not(.ui-admin-docked),html body.tablet-app:not(.ui-admin-pc){width:100%!important;min-width:0!important;max-width:none!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}
