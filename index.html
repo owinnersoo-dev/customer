@@ -4134,7 +4134,8 @@ html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button:focus-
 <button id="uiAdminLaunch" type="button" aria-label="UI 편집 설정" title="UI 편집 설정" aria-controls="uiAdminPanel" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 3-.6 2.2-2 .9-2-.8-2 3.4 1.6 1.6-.1 2.3-1.5 1.6 2 3.4 2.1-.7 2 .9L9 20h4l.6-2.2 2-.9 2 .7 2-3.4-1.6-1.6.1-2.3 1.5-1.6-2-3.4-2.1.8-2-.9L13 3Z"/><circle cx="11" cy="11.5" r="3"/></svg></button>
 <aside id="uiAdminPanel" aria-label="UI 편집 관리자" hidden>
 <header><h2>UI 편집 관리자</h2><button type="button" data-ui-action="close" aria-label="편집창 닫기">닫기 ×</button></header>
-<p>항목을 변경하면 즉시 미리보기에 반영됩니다. 저장을 눌러 확정하세요. 이 메뉴는 디자인 편집 도구이며 로그인 권한 기능은 아닙니다.</p>
+<p>PC 전용 관리자 편집입니다. 항목을 변경하면 즉시 반영됩니다. 저장을 눌러 확정하세요.</p>
+<button type="button" id="uiAdminPasswordChange">관리자 비밀번호 변경</button>
 <label>적용 범위<select id="uiAdminScope"><option value="all">모든 페이지 공통</option><option value="home">환자 목록</option><option value="register">환자 정보</option><option value="pre">상태 평가</option><option value="select">운동 선택</option><option value="record">운동 기록</option><option value="post">운동 후 평가</option><option value="result">결과 확인</option></select></label>
 <div id="uiAdminFields"></div>
 <div class="ui-actions"><button type="button" class="ui-save" data-ui-action="save">설정 저장</button><button type="button" data-ui-action="cancel">수정 취소</button><button type="button" data-ui-action="preview">편집창 접고 확인</button><button type="button" data-ui-action="export">설정 내보내기</button><button type="button" data-ui-action="import">설정 불러오기</button><button type="button" data-ui-action="restore">이전 저장 복원</button><button type="button" data-ui-action="reset">현재 범위 초기화</button></div>
@@ -4143,6 +4144,33 @@ html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button:focus-
 <output id="uiAdminStatus" aria-live="polite"></output>
 </aside>
 <style id="ui-admin-live-v68"></style>
+<style id="ui-admin-access-style">
+body:not(.ui-admin-pc) #uiAdminLaunch,body:not(.ui-admin-pc) #uiAdminPanel{display:none!important}
+#uiAdminAuth{width:min(400px,90vw);border:0;border-radius:16px;padding:24px;box-shadow:0 16px 60px #18233a40;color:#18233a;background:#fff}#uiAdminAuth::backdrop{background:#18233a80}#uiAdminAuth h2{font-size:20px;margin:0 0 12px}#uiAdminAuth label{display:block;margin:12px 0}#uiAdminAuth input{display:block;box-sizing:border-box;width:100%;padding:12px;margin-top:6px;font-size:16px;border:1px solid #cbd5e1;border-radius:8px}#uiAdminAuth .auth-actions{display:flex;gap:8px;margin-top:16px}#uiAdminAuth button{flex:1;padding:12px;border:0;border-radius:8px;background:#eef2f7;color:#18233a}#uiAdminAuth button[type="submit"]{background:#1a519e;color:#fff}#uiAdminAuthStatus{display:block;color:#b42318;font-size:13px;margin-top:10px}#uiAdminAuthNote{font-size:13px;line-height:1.5;color:#667085}
+@media print{#uiAdminAuth{display:none!important}}
+</style>
+<script>
+(()=>{
+ 'use strict';
+ const key='rehab-ui-admin-password-v1',panel=document.getElementById('uiAdminPanel'),launch=document.getElementById('uiAdminLaunch');
+ const media=matchMedia('(min-width:1024px) and (hover:hover) and (pointer:fine)');
+ let unlocked=false,pending=null;
+ document.getElementById('uiAdminAuth')?.remove();
+ function isPc(){return media.matches&&!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)&&!(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)&&!document.body.classList.contains('manual-embedded-preview')}
+ const dialog=document.createElement('dialog');dialog.id='uiAdminAuth';dialog.innerHTML='<form><h2 id="uiAdminAuthTitle">관리자 모드</h2><p id="uiAdminAuthNote">비밀번호는 현재 브라우저·주소에 저장됩니다. 서버 로그인이나 환자 데이터 접근 권한을 보호하는 기능은 아닙니다.</p><label id="uiAdminCurrentLabel">현재 비밀번호<input id="uiAdminCurrent" type="password" autocomplete="current-password" maxlength="128"></label><label id="uiAdminNewLabel">새 비밀번호 (8자 이상)<input id="uiAdminNew" type="password" autocomplete="new-password" minlength="8" maxlength="128"></label><label id="uiAdminConfirmLabel">새 비밀번호 확인<input id="uiAdminConfirm" type="password" autocomplete="new-password" maxlength="128"></label><output id="uiAdminAuthStatus" aria-live="polite"></output><div class="auth-actions"><button type="button" id="uiAdminAuthCancel">취소</button><button type="submit">확인</button></div></form>';document.body.append(dialog);
+ const form=dialog.querySelector('form'),current=dialog.querySelector('#uiAdminCurrent'),next=dialog.querySelector('#uiAdminNew'),confirmInput=dialog.querySelector('#uiAdminConfirm'),status=dialog.querySelector('#uiAdminAuthStatus');let mode='login';
+ function stored(){const raw=localStorage.getItem(key);if(!raw)return null;const value=JSON.parse(raw);if(value.version!==1||!/^[0-9a-f]{32}$/.test(value.salt)||!/^[0-9a-f]{64}$/.test(value.hash))throw Error('저장된 관리자 설정을 읽을 수 없습니다.');return value}
+ async function hash(password,salt){if(!crypto.subtle)throw Error('이 브라우저에서는 비밀번호 기능을 사용할 수 없습니다. 최신 PC 브라우저로 열어주세요.');const bytes=Uint8Array.from(salt.match(/../g),x=>parseInt(x,16)),material=await crypto.subtle.importKey('raw',new TextEncoder().encode(password),'PBKDF2',false,['deriveBits']);const result=await crypto.subtle.deriveBits({name:'PBKDF2',salt:bytes,iterations:120000,hash:'SHA-256'},material,256);return Array.from(new Uint8Array(result),x=>x.toString(16).padStart(2,'0')).join('')}
+ function finish(value){if(dialog.open)dialog.close();form.reset();const resolve=pending;pending=null;resolve?.(value)}
+ function ask(change=false){if(!isPc())return Promise.resolve(false);if(pending)return Promise.resolve(false);try{mode=stored()?(change?'change':'login'):'setup'}catch(e){alert(e.message);return Promise.resolve(false)}form.reset();status.textContent='';current.disabled=mode==='setup';current.required=mode!=='setup';next.disabled=confirmInput.disabled=mode==='login';next.required=confirmInput.required=mode!=='login';dialog.querySelector('#uiAdminCurrentLabel').hidden=mode==='setup';dialog.querySelector('#uiAdminNewLabel').hidden=dialog.querySelector('#uiAdminConfirmLabel').hidden=mode==='login';dialog.querySelector('#uiAdminAuthTitle').textContent=mode==='setup'?'관리자 비밀번호 최초 설정':mode==='change'?'관리자 비밀번호 변경':'관리자 비밀번호 입력';dialog.showModal();(mode==='setup'?next:current).focus();return new Promise(resolve=>pending=resolve)}
+ form.onsubmit=async e=>{e.preventDefault();if(!isPc()){finish(false);return}const button=form.querySelector('[type="submit"]');button.disabled=true;status.textContent='확인 중…';try{const value=stored();if(mode!=='setup'&&(!value||await hash(current.value,value.salt)!==value.hash))throw Error('현재 비밀번호가 일치하지 않습니다.');if(mode!=='login'){if(next.value.length<8)throw Error('비밀번호는 8자 이상 입력하세요.');if(next.value!==confirmInput.value)throw Error('새 비밀번호 확인이 일치하지 않습니다.');const salt=Array.from(crypto.getRandomValues(new Uint8Array(16)),x=>x.toString(16).padStart(2,'0')).join('');localStorage.setItem(key,JSON.stringify({version:1,salt,hash:await hash(next.value,salt)}))}if(!isPc()){finish(false);return}unlocked=true;finish(true)}catch(e){status.textContent=e.message}finally{button.disabled=false}};
+ dialog.querySelector('#uiAdminAuthCancel').onclick=()=>finish(false);dialog.addEventListener('cancel',e=>{e.preventDefault();finish(false)});
+ function sync(){const allowed=isPc();document.body.classList.toggle('ui-admin-pc',allowed);if(!allowed){unlocked=false;finish(false);panel.querySelector('[data-ui-action="cancel"]')?.click();panel.hidden=true;launch.setAttribute('aria-expanded','false');document.body.classList.remove('ui-admin-docked','ui-picking')}}
+ media.addEventListener('change',sync);window.addEventListener('resize',sync);sync();
+ document.getElementById('uiAdminPasswordChange').onclick=()=>ask(true);
+ window.uiAdminAccess={authorize:async()=>isPc()&&(unlocked||await ask()),lock:()=>{unlocked=false},isPc,isUnlocked:()=>unlocked};
+})();
+</script>
 <script>
 (()=>{
  'use strict';
@@ -4184,8 +4212,8 @@ html body.tablet-app #tabletExerciseFilters .tablet-filter-buttons button:focus-
  function fill(){fields.replaceChildren();const scope=scopeEl.value;for(const [name,d] of Object.entries(defs)){const label=document.createElement('label');label.classList.toggle('ui-custom',draft[scope]?.[name]!==undefined);label.append(d.label);const input=document.createElement(d.type==='select'?'select':'input');input.dataset.uiField=name;if(d.type==='select'){for(const [val,text] of Object.entries(d.options)){const opt=new Option(text,val);input.add(opt)}}else{input.type=d.type;if(d.min!==undefined){input.min=d.min;input.max=d.max;input.step=d.step||1}}input.value=draft[scope]?.[name]??draft.all?.[name]??d.fallback;const reset=document.createElement('button');reset.type='button';reset.className='ui-field-reset';reset.dataset.uiReset=name;reset.textContent='↶';reset.title='이 항목 원복 (공통 설정 또는 원래 디자인)';reset.setAttribute('aria-label',d.label+' 원복');label.append(input,reset);fields.append(label)}}
  function say(t){status.textContent=t}
  const homeButton=document.querySelector('.tablet-topbar .tablet-home-btn');if(homeButton){let actions=homeButton.closest('.ui-admin-nav-actions');if(!actions){actions=document.createElement('div');actions.className='ui-admin-nav-actions';homeButton.before(actions)}actions.append(launch,homeButton)}
- launch.onclick=()=>{if(!opened){draft=structuredClone(saved);scopeEl.value=typeof tabletRoute==='string'&&scopes.includes(tabletRoute)?tabletRoute:'all'}opened=true;fill();panel.hidden=false;launch.setAttribute('aria-expanded','true');say('현재 페이지 편집 · 공통 설정보다 페이지별 설정이 우선합니다. ↶로 항목별 원복할 수 있습니다.');panel.querySelector('button').focus()};
- function close(){draft=structuredClone(saved);render();opened=false;panel.hidden=true;launch.setAttribute('aria-expanded','false');launch.focus()}
+ launch.onclick=async()=>{if(!await window.uiAdminAccess.authorize())return;if(!opened){draft=structuredClone(saved);scopeEl.value=typeof tabletRoute==='string'&&scopes.includes(tabletRoute)?tabletRoute:'all'}opened=true;fill();panel.hidden=false;launch.setAttribute('aria-expanded','true');say('현재 페이지 편집 · 공통 설정보다 페이지별 설정이 우선합니다. ↶로 항목별 원복할 수 있습니다.');panel.querySelector('button').focus()};
+ function close(){draft=structuredClone(saved);render();opened=false;panel.hidden=true;launch.setAttribute('aria-expanded','false');window.uiAdminAccess?.lock();launch.focus()}
  scopeEl.onchange=()=>{fill();say('범위별 설정은 공통 설정보다 우선합니다.')};
  function changeField(e){const name=e.target.dataset.uiField;if(!name)return;const d=defs[name];if(!e.target.checkValidity())return;const value=d.type==='number'?Number(e.target.value):e.target.value;if(d.type==='number'&&e.target.value==='')return;draft[scopeEl.value]??={};draft[scopeEl.value][name]=value;e.target.closest('label')?.classList.add('ui-custom');render();say('즉시 반영됨 · 저장을 눌러 확정하세요.')};
  fields.addEventListener('input',changeField);fields.addEventListener('change',changeField);
@@ -4362,12 +4390,22 @@ html body.tablet-app [data-ui-picked]{outline:2px dashed #2563eb!important;outli
 <script>
 (()=>{
  const panel=document.getElementById('uiAdminPanel');
- function syncEditorDock(){document.body.classList.toggle('ui-admin-docked',!panel.hidden)}
+ function syncEditorDock(){const access=window.uiAdminAccess;const visible=!panel.hidden&&getComputedStyle(panel).display!=='none';document.body.classList.toggle('ui-admin-docked',!!(access?.isPc()&&access?.isUnlocked()&&visible))}
  new MutationObserver(syncEditorDock).observe(panel,{attributes:true,attributeFilter:['hidden']});
+ window.addEventListener('resize',syncEditorDock);
  syncEditorDock();
 })();
 </script>
 <style id="floating-page-navigation-v69">
+/* 편집창을 실제로 사용하는 PC 외에는 우측 예약 공간을 남기지 않는다. */
+@media screen{
+ html body.tablet-app:not(.ui-admin-docked),html body.tablet-app:not(.ui-admin-pc){width:100%!important;min-width:0!important;max-width:none!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}
+ html body.tablet-app:not(.ui-admin-docked) .tablet-topbar,html body.tablet-app:not(.ui-admin-pc) .tablet-topbar{width:100%!important;max-width:none!important;box-sizing:border-box!important}
+ html body.tablet-app:not(.ui-admin-pc) :is(main.wrap,#tabletHome){width:100%!important;min-width:0!important;max-width:1280px!important;box-sizing:border-box!important;margin-left:auto!important;margin-right:auto!important}
+ html body.tablet-app:not(.ui-admin-pc) #patientInfoPanel{width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box!important}
+ html body.tablet-app:not(.ui-admin-pc) #floatingScrollTop{right:max(16px,env(safe-area-inset-right,0px))!important}
+ html body.tablet-app:not(.ui-admin-pc).tablet-route-select #exerciseListPanel #pagerBottom{left:0!important;right:0!important;width:100%!important}
+}
 html body.tablet-app #tabletBottomActions{display:none!important}
 html body.tablet-app{padding-bottom:24px!important}
 html body.tablet-app #exerciseListPanel #pagerTop{display:none!important}
