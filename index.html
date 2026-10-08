@@ -3425,9 +3425,10 @@ function tabletPrintCombinedPdf(){
 </script>
 <style id="mobile-date-select-v55">
 .mobile-date-select{display:none;grid-template-columns:1.35fr .9fr .9fr;gap:7px;width:100%}.mobile-date-select select{width:100%;min-width:0}
-@media screen and (max-width:1100px){.mobile-date-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}.mobile-date-select{display:grid}}
-body.manual-embedded-preview .mobile-date-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+@media screen and (max-width:1100px){.mobile-date-native{display:none!important}.mobile-date-select{display:grid}}
+body.manual-embedded-preview .mobile-date-native{display:none!important}
 body.manual-embedded-preview .mobile-date-select{display:grid!important}
+@media screen{body.tablet-app:not(.ui-admin-pc) #patientInfoPanel .mobile-date-native{display:none!important}body.tablet-app:not(.ui-admin-pc) #patientInfoPanel .mobile-date-select{display:grid!important;min-width:0!important;max-width:100%!important;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr) minmax(0,.9fr)!important}}
 </style>
 <style id="patient-information-line-theme-v56">
 /* 참고 UI 기반 환자 정보 입력: 박스형 입력을 줄이고 하단선으로 정돈 */
