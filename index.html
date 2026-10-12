@@ -399,7 +399,21 @@ body.tablet-app{padding:0!important;background:#eef2f7;min-width:720px}
 .result-quick-nav{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #dbe3ee}.result-quick-nav button{min-height:36px!important;padding:6px 10px!important;border-radius:999px!important;background:#fff;color:#344054;font-size:12px!important}
 .tablet-route-result #summaryPanel{padding-top:18px;padding-bottom:18px}.tablet-route-result #summaryPanel .note{margin-top:10px}.tablet-route-result #progressReportPanel{margin-bottom:8px}
 @media(max-width:820px){.result-master-tools{grid-template-columns:1fr}.result-master-actions{justify-content:stretch}.result-master-actions button{flex:1}.result-quick-nav{grid-column:1}}
-</style></head><body class="tablet-app">
+</style><script id="automatic-device-mode-v66">
+(()=>{
+ function classifyDevice(ua,platform,touch,width,height){if(/iPad|Tablet|PlayBook|Silk/i.test(ua)||(platform==='MacIntel'&&touch>1))return 'tablet';if(/iPhone|iPod|Windows Phone/i.test(ua))return 'mobile';if(/Android/i.test(ua))return /Mobile/i.test(ua)?'mobile':'tablet';if(/Mobile/i.test(ua))return 'mobile';return 'pc'}
+ const physical=classifyDevice(navigator.userAgent||'',navigator.platform||'',navigator.maxTouchPoints||0,screen.width,screen.height);
+ function sync(){const root=document.documentElement;root.dataset.physicalDevice=physical;if(document.body){const preview=document.body.classList.contains('manual-embedded-preview'),mode=preview?(document.body.dataset.manualPreviewMode||'pc'):physical;document.body.dataset.deviceMode=mode;document.body.classList.toggle('actual-mobile-device',physical==='mobile');document.body.classList.toggle('actual-tablet-device',physical==='tablet');document.body.classList.toggle('actual-pc-device',physical==='pc');if(physical!=='pc'){document.body.classList.remove('ui-admin-pc','ui-admin-docked','ui-picking');document.getElementById('uiAdminPanel')?.setAttribute('hidden','');document.querySelector('#manualDevicePreviewOverlay')?.classList.remove('show')}}}
+ window.manualDeviceMode={physical,isPc:()=>physical==='pc',classifyDevice,refresh:sync};sync();document.addEventListener('DOMContentLoaded',sync);window.addEventListener('orientationchange',sync);
+})();
+</script>
+<style id="automatic-device-access-v66">
+@media screen{
+html[data-physical-device="mobile"] :is(.manual-device-preview-toolbar,.manual-device-preview-overlay,#uiAdminLaunch,#uiAdminPanel,#uiAdminAuth),html[data-physical-device="tablet"] :is(.manual-device-preview-toolbar,.manual-device-preview-overlay,#uiAdminLaunch,#uiAdminPanel,#uiAdminAuth){display:none!important}
+html[data-physical-device="pc"] body:not(.manual-embedded-preview) .manual-device-preview-toolbar{display:flex!important}
+}
+</style>
+</head><body class="tablet-app">
 <div class="tablet-shell" id="tabletShell">
   <nav class="tablet-topbar">
     <div class="tablet-brand"><div class="tablet-logo">PT</div><div><strong>어깨·견갑 재활</strong><small>환자 운동 관리</small></div></div>
@@ -3433,6 +3447,7 @@ body.manual-embedded-preview .manual-device-preview-toolbar,body.manual-embedded
 (()=>{
   const modes={pc:['PC 보기','약 1440px'],tablet:['태블릿 보기','820px'],mobile:['모바일 보기','390px']};
   window.setManualDevicePreview=function(mode){
+    if(!window.manualDeviceMode?.isPc())return;
     if(!modes[mode])mode='pc';
     const wrap=document.getElementById('manualDevicePreviewFrameWrap');
     if(!wrap)return;
@@ -3441,7 +3456,7 @@ body.manual-embedded-preview .manual-device-preview-toolbar,body.manual-embedded
     document.getElementById('manualDevicePreviewMeta').textContent='· '+modes[mode][1];
     document.querySelectorAll('.manual-device-preview-actions [data-mode]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mode===mode));
     const frame=document.getElementById('manualDevicePreviewFrame');
-    try{const child=frame?.contentWindow;if(child?.document.body?.classList.contains('manual-embedded-preview')){child.document.body.dataset.manualPreviewMode=mode;child.uiAdminAccess?.refresh()}}catch{}
+    try{const child=frame?.contentWindow;if(child?.document.body?.classList.contains('manual-embedded-preview')){child.document.body.dataset.manualPreviewMode=mode;child.manualDeviceMode?.refresh();child.uiAdminAccess?.refresh()}}catch{}
   };
   function previewSource(mode){
     const clone=document.documentElement.cloneNode(true),body=clone.querySelector('body');
@@ -3450,7 +3465,7 @@ body.manual-embedded-preview .manual-device-preview-toolbar,body.manual-embedded
     const overlay=clone.querySelector('#manualDevicePreviewOverlay');if(overlay)overlay.classList.remove('show');
     return '<!doctype html>\n'+clone.outerHTML;
   }
-  window.openManualDevicePreview=function(mode){
+  window.openManualDevicePreview=function(mode){if(!window.manualDeviceMode?.isPc())return;
     const overlay=document.getElementById('manualDevicePreviewOverlay'),frame=document.getElementById('manualDevicePreviewFrame');
     setManualDevicePreview(mode);
     if(frame&&!frame.dataset.ready){frame.dataset.ready='1';frame.srcdoc=previewSource(mode)}
@@ -4220,7 +4235,7 @@ body:not(.ui-admin-pc) #uiAdminLaunch,body:not(.ui-admin-pc) #uiAdminPanel{displ
  const media=matchMedia('(min-width:1024px) and (hover:hover) and (pointer:fine)');
  let unlocked=false,pending=null;
  document.getElementById('uiAdminAuth')?.remove();
- function isPc(){const ua=navigator.userAgent||'',mobile=/Android|iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);if(mobile)return false;if(document.body.classList.contains('manual-embedded-preview')&&document.body.dataset.manualPreviewMode!=='pc')return false;return /Windows NT|Macintosh|X11|Linux/i.test(ua)||matchMedia('(hover:hover) and (pointer:fine)').matches}
+ function isPc(){if(!window.manualDeviceMode?.isPc())return false;if(document.body.classList.contains('manual-embedded-preview')&&document.body.dataset.manualPreviewMode!=='pc')return false;return true}
  const dialog=document.createElement('dialog');dialog.id='uiAdminAuth';dialog.innerHTML='<form><h2 id="uiAdminAuthTitle">관리자 모드</h2><p id="uiAdminAuthNote">비밀번호는 현재 브라우저·주소에 저장됩니다. 서버 로그인이나 환자 데이터 접근 권한을 보호하는 기능은 아닙니다.</p><label id="uiAdminCurrentLabel">현재 비밀번호<input id="uiAdminCurrent" type="password" autocomplete="current-password" maxlength="128"></label><label id="uiAdminNewLabel">새 비밀번호 (8자 이상)<input id="uiAdminNew" type="password" autocomplete="new-password" minlength="8" maxlength="128"></label><label id="uiAdminConfirmLabel">새 비밀번호 확인<input id="uiAdminConfirm" type="password" autocomplete="new-password" maxlength="128"></label><output id="uiAdminAuthStatus" aria-live="polite"></output><div class="auth-actions"><button type="button" id="uiAdminAuthCancel">취소</button><button type="submit">확인</button></div></form>';document.body.append(dialog);
  const form=dialog.querySelector('form'),current=dialog.querySelector('#uiAdminCurrent'),next=dialog.querySelector('#uiAdminNew'),confirmInput=dialog.querySelector('#uiAdminConfirm'),status=dialog.querySelector('#uiAdminAuthStatus');let mode='login';
  function stored(){const raw=localStorage.getItem(key);if(!raw)return null;const value=JSON.parse(raw);if(value.version!==1||!/^[0-9a-f]{32}$/.test(value.salt)||!/^[0-9a-f]{64}$/.test(value.hash))throw Error('저장된 관리자 설정을 읽을 수 없습니다.');return value}
